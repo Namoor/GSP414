@@ -53,10 +53,10 @@ void System::InitWindow()
 
 	RECT _WndRect;
 
-	_WndRect.top = 40;
-	_WndRect.left = 400;
-	_WndRect.bottom = 400;
-	_WndRect.right = 800;
+	_WndRect.top = 100;
+	_WndRect.left = 100;
+	_WndRect.bottom = 1124;
+	_WndRect.right = 1124;
 	AdjustWindowRect(&_WndRect, WindowStyle, false);
 
 
@@ -151,7 +151,7 @@ void System::Run(IScene* p_pScene)
 {
 	m_pScene = p_pScene;
 
-	m_pScene->Initialize();
+	m_pScene->Initialize(m_pDevice, m_pDeviceContext);
 	float InitTime = m_pTimer->GetDeltaTime();
 
 	MSG msg;
@@ -171,9 +171,9 @@ void System::Run(IScene* p_pScene)
 		float TimeSinceLastFrame = m_pTimer->GetDeltaTime();
 
 		float Color[4];
-		Color[0] = (rand() % 256) / 256.0f; // Rot
-		Color[1] = (rand() % 256) / 256.0f; // Grün
-		Color[2] = (rand() % 256) / 256.0f; // Blau
+		Color[0] = 0;  (rand() % 256) / 256.0f; // Rot
+		Color[1] = 0;  (rand() % 256) / 256.0f; // Grün
+		Color[2] = 0;  (rand() % 256) / 256.0f; // Blau
 		Color[3] = 1; // Alpha
 
 		m_pDeviceContext->ClearRenderTargetView(m_pBackbuffer, Color);

@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Timer">
       <UniqueIdentifier>{7b7c6b91-4b36-49cc-89ec-3c4f522249d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\2DScene\Simple2DObject">
+      <UniqueIdentifier>{dd2560d9-b244-47af-ab3f-bc0fd88b61d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Texture">
+      <UniqueIdentifier>{8769474d-b1a6-4d8f-9c40-acf1f0d0b08f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -38,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Simple2DObject.cpp">
+      <Filter>Source Files\2DScene\Simple2DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,5 +68,19 @@
     <ClInclude Include="Timer.h">
       <Filter>Source Files\Timer</Filter>
     </ClInclude>
+    <ClInclude Include="Simple2DObject.h">
+      <Filter>Source Files\2DScene\Simple2DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Simple2DObject_Structs.h">
+      <Filter>Source Files\2DScene\Simple2DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Source Files\Texture</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Simple2DShader.hlsl">
+      <Filter>Source Files\2DScene\Simple2DObject</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
