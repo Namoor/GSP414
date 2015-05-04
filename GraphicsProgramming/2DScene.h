@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "Simple2DObject.h"
+#include "SpriteBatch.h"
 
 class Scene2D : public IScene
 {
@@ -21,4 +22,7 @@ public:
 
 private:
 	Simple2DObject* m_pFirstObject;
+
+
+	SpriteBatch* m_pSpriteBatch;
 };

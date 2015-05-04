@@ -29,7 +29,7 @@ void Simple2DObject::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_
 	m_pDevCon = p_pDevCon;
 
 
-	m_pTexture = new Texture("Tex.tga", m_pDevice);
+	m_pTexture = new Texture("Tex.bmp", m_pDevice);
 
 	// Initializieren des Rechteckes
 
@@ -41,19 +41,19 @@ void Simple2DObject::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_
 
 	_Vertices[0].Position = D3DXVECTOR3(-0.6f, -0.6f, 0);
 	_Vertices[0].Color = D3DXVECTOR4(1, 0, 0, 1);
-	_Vertices[0].UV = D3DXVECTOR2(0, 0);
+	_Vertices[0].UV = D3DXVECTOR2(0, 1);
 
 	_Vertices[1].Position = D3DXVECTOR3(0.6f, -0.6f, 0);
 	_Vertices[1].Color = D3DXVECTOR4(1, 1, 0, 1);
-	_Vertices[1].UV = D3DXVECTOR2(1, 0);
+	_Vertices[1].UV = D3DXVECTOR2(1, 1);
 
 	_Vertices[2].Position = D3DXVECTOR3(-0.6f, 0.6f, 0);
 	_Vertices[2].Color = D3DXVECTOR4(1, 0, 0, 1);
-	_Vertices[2].UV = D3DXVECTOR2(0, 1);
+	_Vertices[2].UV = D3DXVECTOR2(0, 0);
 
 	_Vertices[3].Position = D3DXVECTOR3(0.6f, 0.6f, 0);
 	_Vertices[3].Color = D3DXVECTOR4(1, 0, 0, 1);
-	_Vertices[3].UV = D3DXVECTOR2(1, 1);
+	_Vertices[3].UV = D3DXVECTOR2(1, 0);
 
 
 	D3D11_BUFFER_DESC _VBufferDesc;
@@ -96,7 +96,7 @@ void Simple2DObject::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_
 	_IBufferDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
 	_IBufferDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 	_IBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-	_IBufferDesc.ByteWidth = 6 * sizeof(DWORD); // Anzahl an Indices(6) * Größe eines Indices(4)
+	_IBufferDesc.ByteWidth = 2 * 3 * sizeof(DWORD); // Anzahl an Indices(6) * Größe eines Indices(4)
 
 
 	m_pDevice->CreateBuffer(&_IBufferDesc, nullptr, &m_pIndexBuffer);

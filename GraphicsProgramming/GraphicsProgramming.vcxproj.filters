@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Texture">
       <UniqueIdentifier>{8769474d-b1a6-4d8f-9c40-acf1f0d0b08f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\2DScene\SpriteBatch">
+      <UniqueIdentifier>{22dfbb17-131d-43b9-8ae4-201b218d2d6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataStructures">
+      <UniqueIdentifier>{c9328bc5-29da-428b-8547-c59b09889451}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -50,6 +56,12 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Source Files\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteBatch.cpp">
+      <Filter>Source Files\2DScene\SpriteBatch</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,10 +89,22 @@
     <ClInclude Include="Texture.h">
       <Filter>Source Files\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteBatch.h">
+      <Filter>Source Files\2DScene\SpriteBatch</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Source Files\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBatch_Structs.h">
+      <Filter>Source Files\2DScene\SpriteBatch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple2DShader.hlsl">
       <Filter>Source Files\2DScene\Simple2DObject</Filter>
+    </FxCompile>
+    <FxCompile Include="SpriteBatchShader.hlsl">
+      <Filter>Source Files\2DScene\SpriteBatch</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
