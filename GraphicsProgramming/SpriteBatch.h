@@ -10,7 +10,7 @@ struct DrawCommand
 	Rect m_DestinationRectangle;
 	Texture* m_pTexture;
 	Rect m_SourceRectangle;
-	D3DXCOLOR m_Color;
+	D3DXVECTOR4 m_Color;
 };
 
 class SpriteBatch
@@ -22,7 +22,7 @@ public:
 
 	void Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDeviceContext);
 
-	void DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture, Rect p_SourceRectangle, D3DXCOLOR p_Color);
+	void DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture, Rect p_SourceRectangle, D3DXVECTOR4 p_Color);
 
 	void Begin();
 	void End();

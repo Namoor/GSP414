@@ -3,7 +3,7 @@
 
 
 
-Rect::Rect(int p_X, int p_Y, int p_Width, int p_Height)
+Rect::Rect(float p_X, float p_Y, float p_Width, float p_Height)
 {
 	x = p_X;
 	y = p_Y;

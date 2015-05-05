@@ -2,6 +2,7 @@
 
 
 #include "Scene.h"
+#include "Texture.h"
 #include "Simple2DObject.h"
 #include "SpriteBatch.h"
 
@@ -22,7 +23,12 @@ public:
 
 private:
 	Simple2DObject* m_pFirstObject;
-
+	Texture* m_pTexture1;
 
 	SpriteBatch* m_pSpriteBatch;
+
+	ID3D11Device* m_pDevice;
+	ID3D11DeviceContext* m_pDeviceContext;
+
+
 };

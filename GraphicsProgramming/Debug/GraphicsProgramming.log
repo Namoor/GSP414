@@ -1,8 +1,8 @@
-﻿Build started 04.05.2015 14:39:20.
+﻿Build started 05.05.2015 14:56:04.
      1>Project "C:\Lecture\GPD414\Repo\GraphicsProgramming\GraphicsProgramming.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Simple2DObject.cpp
-         Simple2DObject.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt 2DScene.cpp
+         2DScene.cpp
      1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(12): warning C4005: 'DXGI_STATUS_OCCLUDED' : macro redefinition
                  c:\program files (x86)\windows kits\8.1\include\shared\winerror.h(50002) : see previous definition of 'DXGI_STATUS_OCCLUDED'
      1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(13): warning C4005: 'DXGI_STATUS_CLIPPED' : macro redefinition
@@ -59,9 +59,18 @@
                  c:\program files (x86)\windows kits\8.1\include\shared\winerror.h(50355) : see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
      1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(609): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND' : macro redefinition
                  c:\program files (x86)\windows kits\8.1\include\shared\winerror.h(50364) : see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
-     1>c:\lecture\gpd414\repo\graphicsprogramming\simple2dobject.cpp(112): error C2065: 'm_pInfdexBuffer' : undeclared identifier
-     1>Done Building Project "C:\Lecture\GPD414\Repo\GraphicsProgramming\GraphicsProgramming.vcxproj" (Build target(s)) -- FAILED.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Lecture\GPD414\Repo\GraphicsProgramming\\GraphicsProgramming.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Lecture\GPD414\Repo\GraphicsProgramming\\GraphicsProgramming.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Lecture\GPD414\Repo\GraphicsProgramming\\GraphicsProgramming.lib" /MACHINE:X86 Debug\2DScene.obj
+         Debug\Main.obj
+         Debug\Rect.obj
+         Debug\Simple2DObject.obj
+         Debug\SpriteBatch.obj
+         Debug\System.obj
+         Debug\Texture.obj
+         Debug\Timer.obj
+         GraphicsProgramming.vcxproj -> C:\Lecture\GPD414\Repo\GraphicsProgramming\\GraphicsProgramming.exe
+     1>Done Building Project "C:\Lecture\GPD414\Repo\GraphicsProgramming\GraphicsProgramming.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.82
+Time Elapsed 00:00:00.78
