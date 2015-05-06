@@ -24,6 +24,7 @@ public:
 private:
 	Simple2DObject* m_pFirstObject;
 	Texture* m_pTexture1;
+	Texture* m_pTexture2;
 
 	SpriteBatch* m_pSpriteBatch;
 

@@ -23,6 +23,9 @@ public:
 	void Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDeviceContext);
 
 	void DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture, Rect p_SourceRectangle, D3DXVECTOR4 p_Color);
+	void DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture, Rect p_SourceRectangle);
+	void DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture, D3DXVECTOR4 p_Color);
+	void DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture);
 
 	void Begin();
 	void End();
@@ -41,4 +44,9 @@ private:
 	ID3D11InputLayout* m_pInputLayout;
 
 	std::list<DrawCommand> m_DrawCommands;
+
+	Texture* m_pActiveTexture;
+
+	int m_PixelX;
+	int m_PixelY;
 };

@@ -22,5 +22,5 @@ VertexOut VShader(float4 Position : POSITION, float4 Color : COLOR, float2 UV : 
 
 float4 PShader(VertexOut p_Input) : SV_TARGET
 {
-	return p_Input.col * gTexture.Sample(gSampler, p_Input.UV);
+	return p_Input.col *gTexture.Sample(gSampler, p_Input.UV);
 }

@@ -1,5 +1,8 @@
 #include "System.h"
 
+int System::m_PixelX = 0;
+int System::m_PixelY = 0;
+
 System::System()
 {
 	m_Window = 0;
@@ -53,10 +56,13 @@ void System::InitWindow()
 
 	RECT _WndRect;
 
+	m_PixelX = 1024;
+	m_PixelY = 1024;
+
 	_WndRect.top = 100;
 	_WndRect.left = 100;
-	_WndRect.bottom = 1124;
-	_WndRect.right = 1124;
+	_WndRect.bottom = m_PixelY + 100;
+	_WndRect.right = m_PixelX + 100;
 	AdjustWindowRect(&_WndRect, WindowStyle, false);
 
 
@@ -136,8 +142,8 @@ void System::InitD3D()
 	D3D11_VIEWPORT _ViewPort;
 	_ViewPort.TopLeftX = 0;
 	_ViewPort.TopLeftY = 0;
-	_ViewPort.Width = 1024;
-	_ViewPort.Height = 1024;
+	_ViewPort.Width = m_PixelX;
+	_ViewPort.Height = m_PixelY;
 	_ViewPort.MinDepth = 0;
 	_ViewPort.MaxDepth = 1;
 

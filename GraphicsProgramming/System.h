@@ -18,12 +18,15 @@ public:
 
 	void Run(IScene* p_pScene);
 
+	static int m_PixelX;
+	static int m_PixelY;
 
 private:
 	void InitWindow();
 	void InitD3D();
 
 	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+
 
 private:
 	HWND m_Window;
@@ -40,8 +43,6 @@ private:
 
 
 	ID3D11RenderTargetView* m_pBackbuffer;
-
-
 
 
 
