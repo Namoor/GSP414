@@ -120,6 +120,30 @@ void SpriteBatch::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDeviceCo
 	m_pDevice->CreateInputLayout(_IED, 3,
 		_pVertexShaderBlob->GetBufferPointer(), _pVertexShaderBlob->GetBufferSize(),
 		&m_pInputLayout);
+
+
+	// BlendState
+	// Gewollte Formel = RGB1 * A1 + RGB0 * (1 - A1)
+
+	D3D11_BLEND_DESC _BDesc;
+	ZeroMemory(&_BDesc, sizeof(_BDesc));
+
+	_BDesc.AlphaToCoverageEnable = false;
+	_BDesc.IndependentBlendEnable = false;
+
+	_BDesc.RenderTarget[0].BlendEnable = true;
+	_BDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	_BDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+	_BDesc.RenderTarget[0].DestBlend = D3D11_BLEND::D3D11_BLEND_INV_SRC_ALPHA;
+	_BDesc.RenderTarget[0].SrcBlend = D3D11_BLEND::D3D11_BLEND_SRC_ALPHA;
+
+	_BDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+	_BDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND::D3D11_BLEND_INV_SRC_ALPHA;
+	_BDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND::D3D11_BLEND_SRC_ALPHA;
+
+
+	m_pDevice->CreateBlendState(&_BDesc, &m_pBlendState);
 }
 
 void SpriteBatch::DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture)
@@ -232,25 +256,25 @@ void SpriteBatch::End()
 		_pVertices[CurrentIndex * 4 + 3].Color = _Command.m_Color;
 
 		// Position
-		_pVertices[CurrentIndex * 4 + 0].Position = D3DXVECTOR3(X * 2 - 1, Y * 2 - 1, 0);
-		_pVertices[CurrentIndex * 4 + 1].Position = D3DXVECTOR3((X + Width) * 2 - 1, Y * 2 - 1, 0);
-		_pVertices[CurrentIndex * 4 + 2].Position = D3DXVECTOR3(X * 2 - 1, (Y + Height) * 2 - 1, 0);
-		_pVertices[CurrentIndex * 4 + 3].Position = D3DXVECTOR3((X + Width) * 2 - 1, (Y + Height) * 2 - 1, 0);
+		_pVertices[CurrentIndex * 4 + 0].Position = D3DXVECTOR3(X * 2 - 1,-1 * (Y * 2 - 1), 0);
+		_pVertices[CurrentIndex * 4 + 1].Position = D3DXVECTOR3((X + Width) * 2 - 1, -1 * (Y * 2 - 1), 0);
+		_pVertices[CurrentIndex * 4 + 2].Position = D3DXVECTOR3(X * 2 - 1, -1 * ((Y + Height) * 2 - 1), 0);
+		_pVertices[CurrentIndex * 4 + 3].Position = D3DXVECTOR3((X + Width) * 2 - 1, -1 * ((Y + Height) * 2 - 1), 0);
 
 		// UV
-		_pVertices[CurrentIndex * 4 + 0].UV = D3DXVECTOR2(UV_X, UV_Y + UV_Height);
-		_pVertices[CurrentIndex * 4 + 1].UV = D3DXVECTOR2(UV_X + UV_Width, UV_Y + UV_Height);
-		_pVertices[CurrentIndex * 4 + 2].UV = D3DXVECTOR2(UV_X, UV_Y);
-		_pVertices[CurrentIndex * 4 + 3].UV = D3DXVECTOR2(UV_X + UV_Width, UV_Y);
+		_pVertices[CurrentIndex * 4 + 0].UV = D3DXVECTOR2(UV_X, UV_Y);
+		_pVertices[CurrentIndex * 4 + 1].UV = D3DXVECTOR2(UV_X + UV_Width, UV_Y);
+		_pVertices[CurrentIndex * 4 + 2].UV = D3DXVECTOR2(UV_X, UV_Y + UV_Height);
+		_pVertices[CurrentIndex * 4 + 3].UV = D3DXVECTOR2(UV_X + UV_Width, UV_Y + UV_Height);
 
 
 		// Indices
 		_pIndices[CurrentIndex * 6 + 0] = 4 * CurrentIndex + 0;
-		_pIndices[CurrentIndex * 6 + 1] = 4 * CurrentIndex + 2;
-		_pIndices[CurrentIndex * 6 + 2] = 4 * CurrentIndex + 1;
+		_pIndices[CurrentIndex * 6 + 1] = 4 * CurrentIndex + 1;
+		_pIndices[CurrentIndex * 6 + 2] = 4 * CurrentIndex + 2;
 		_pIndices[CurrentIndex * 6 + 3] = 4 * CurrentIndex + 1;
-		_pIndices[CurrentIndex * 6 + 4] = 4 * CurrentIndex + 2;
-		_pIndices[CurrentIndex * 6 + 5] = 4 * CurrentIndex + 3;
+		_pIndices[CurrentIndex * 6 + 4] = 4 * CurrentIndex + 3;
+		_pIndices[CurrentIndex * 6 + 5] = 4 * CurrentIndex + 2;
 
 
 		// Index erhöhen
@@ -288,14 +312,14 @@ void SpriteBatch::End()
 	delete _pIndices;
 
 	// Die zuvorinitialisierten Variablen (VertexBuffer, IndexBuffer, VertexShader,
-	// IndexShader und Inputlayout) zuweisen
+	// IndexShader, Inputlayout und BlendState) zuweisen
 
 
 	m_pDevCon->VSSetShader(m_pVertexShader, nullptr, 0);
 	m_pDevCon->PSSetShader(m_pPixelShader, nullptr, 0);
 
 	m_pDevCon->IASetInputLayout(m_pInputLayout);
-
+	m_pDevCon->OMSetBlendState(m_pBlendState, nullptr, 0xFFFFFFFF);
 
 	UINT stride = sizeof(SpriteBatch_Vertex);
 	UINT offset = 0;
@@ -310,8 +334,6 @@ void SpriteBatch::End()
 	// Primitive Topology setzen und zeichnen
 	m_pDevCon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_pDevCon->DrawIndexed(_SpriteCount * 6, 0, 0);
-
-
 }
 
 

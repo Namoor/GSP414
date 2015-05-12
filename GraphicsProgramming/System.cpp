@@ -1,4 +1,6 @@
 #include "System.h"
+#include "Input.h"
+
 
 int System::m_PixelX = 0;
 int System::m_PixelY = 0;
@@ -183,6 +185,8 @@ void System::Run(IScene* p_pScene)
 		Color[3] = 1; // Alpha
 
 		m_pDeviceContext->ClearRenderTargetView(m_pBackbuffer, Color);
+
+		Input::GetInstance()->Update();
 
 		// Rendern der Scene
 		m_pScene->Update(TimeSinceLastFrame);

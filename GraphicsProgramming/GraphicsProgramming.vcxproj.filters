@@ -31,14 +31,20 @@
     <Filter Include="Source Files\Texture">
       <UniqueIdentifier>{8769474d-b1a6-4d8f-9c40-acf1f0d0b08f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\2DScene\SpriteBatch">
-      <UniqueIdentifier>{22dfbb17-131d-43b9-8ae4-201b218d2d6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\DataStructures">
       <UniqueIdentifier>{c9328bc5-29da-428b-8547-c59b09889451}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\SpriteFont">
       <UniqueIdentifier>{1238725f-a3b7-460c-8b50-24d660e146e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FPSCounter">
+      <UniqueIdentifier>{6113b936-a05c-435e-8611-20edc8e3d0e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SpriteBatch">
+      <UniqueIdentifier>{22dfbb17-131d-43b9-8ae4-201b218d2d6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{b5be56c8-93e9-42d7-a305-381407390061}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,10 +70,16 @@
       <Filter>Source Files\DataStructures</Filter>
     </ClCompile>
     <ClCompile Include="SpriteBatch.cpp">
-      <Filter>Source Files\2DScene\SpriteBatch</Filter>
+      <Filter>Source Files\SpriteBatch</Filter>
     </ClCompile>
     <ClCompile Include="SpriteFont.cpp">
       <Filter>Source Files\SpriteFont</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>Source Files\FPSCounter</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,13 +108,13 @@
       <Filter>Source Files\Texture</Filter>
     </ClInclude>
     <ClInclude Include="SpriteBatch.h">
-      <Filter>Source Files\2DScene\SpriteBatch</Filter>
+      <Filter>Source Files\SpriteBatch</Filter>
     </ClInclude>
     <ClInclude Include="Rect.h">
       <Filter>Source Files\DataStructures</Filter>
     </ClInclude>
     <ClInclude Include="SpriteBatch_Structs.h">
-      <Filter>Source Files\2DScene\SpriteBatch</Filter>
+      <Filter>Source Files\SpriteBatch</Filter>
     </ClInclude>
     <ClInclude Include="SpriteFont.h">
       <Filter>Source Files\SpriteFont</Filter>
@@ -110,13 +122,19 @@
     <ClInclude Include="CharDesc.h">
       <Filter>Source Files\SpriteFont</Filter>
     </ClInclude>
+    <ClInclude Include="FPSCounter.h">
+      <Filter>Source Files\FPSCounter</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Source Files\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple2DShader.hlsl">
       <Filter>Source Files\2DScene\Simple2DObject</Filter>
     </FxCompile>
     <FxCompile Include="SpriteBatchShader.hlsl">
-      <Filter>Source Files\2DScene\SpriteBatch</Filter>
+      <Filter>Source Files\SpriteBatch</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

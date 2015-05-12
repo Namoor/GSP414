@@ -73,6 +73,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="2DScene.cpp" />
+    <ClCompile Include="FPSCounter.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Simple2DObject.cpp" />
@@ -86,6 +88,8 @@
     <ClInclude Include="2DScene.h" />
     <ClInclude Include="CharDesc.h" />
     <ClInclude Include="d3dinclude.h" />
+    <ClInclude Include="FPSCounter.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simple2DObject.h" />

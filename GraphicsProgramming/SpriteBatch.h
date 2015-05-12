@@ -1,3 +1,5 @@
+#pragma once
+
 #include <list>
 
 #include "d3dinclude.h"
@@ -46,6 +48,8 @@ private:
 	ID3D11VertexShader* m_pVertexShader;
 
 	ID3D11InputLayout* m_pInputLayout;
+
+	ID3D11BlendState* m_pBlendState;
 
 	std::list<DrawCommand> m_DrawCommands;
 

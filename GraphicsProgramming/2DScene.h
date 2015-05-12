@@ -6,6 +6,7 @@
 #include "Simple2DObject.h"
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
+#include "FPSCounter.h"
 
 class Scene2D : public IScene
 {
@@ -34,4 +35,6 @@ private:
 
 	SpriteFont* m_pArial;
 
+
+	FPSCounter* m_pFPSCounter;
 };
