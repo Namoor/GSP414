@@ -5,6 +5,8 @@
 #include "Rect.h"
 #include "Texture.h"
 
+#include "SpriteFont.h"
+
 struct DrawCommand
 {
 	Rect m_DestinationRectangle;
@@ -26,6 +28,8 @@ public:
 	void DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture, Rect p_SourceRectangle);
 	void DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture, D3DXVECTOR4 p_Color);
 	void DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture);
+
+	void DrawString(SpriteFont* p_pSpriteFont, char* p_String, float p_X, float p_Y, float p_Height, D3DXVECTOR4 p_Color);
 
 	void Begin();
 	void End();

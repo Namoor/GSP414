@@ -37,6 +37,9 @@
     <Filter Include="Source Files\DataStructures">
       <UniqueIdentifier>{c9328bc5-29da-428b-8547-c59b09889451}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\SpriteFont">
+      <UniqueIdentifier>{1238725f-a3b7-460c-8b50-24d660e146e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -62,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="SpriteBatch.cpp">
       <Filter>Source Files\2DScene\SpriteBatch</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteFont.cpp">
+      <Filter>Source Files\SpriteFont</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="SpriteBatch_Structs.h">
       <Filter>Source Files\2DScene\SpriteBatch</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteFont.h">
+      <Filter>Source Files\SpriteFont</Filter>
+    </ClInclude>
+    <ClInclude Include="CharDesc.h">
+      <Filter>Source Files\SpriteFont</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

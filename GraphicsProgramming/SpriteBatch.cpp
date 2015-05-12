@@ -154,6 +154,38 @@ void SpriteBatch::DrawTexture(Rect p_DestinationRectangle, Texture* p_pTexture, 
 	m_DrawCommands.push_back(_NewCommand);
 }
 
+
+void SpriteBatch::DrawString(SpriteFont* p_pSpriteFont, char* p_String, float p_X, float p_Y, float p_Height, D3DXVECTOR4 p_Color)
+{
+	int _StringLength = strlen(p_String);
+
+	float _XOffset = 0;
+
+	for (int x = 0; x < _StringLength; x++)
+	{
+		if (p_String[x] == ' ')
+		{
+			_XOffset += 0.5f * p_Height;
+			continue;
+		}
+
+		int _CharID = p_String[x];
+
+		CharDesc _Desc = p_pSpriteFont->m_Chars[_CharID];
+
+		Rect _Destination(p_X + _XOffset, p_Y + _Desc.m_RelativeOffsetY * p_Height,
+			p_Height * _Desc.m_RelativeWidth, p_Height * _Desc.m_RelativeHeight);
+
+		Rect _Src(_Desc.m_X / 256.0f, _Desc.m_Y / 256.0f, _Desc.m_Width / 256.0f, _Desc.m_Height / 256.0f);
+
+		_XOffset += p_Height * _Desc.m_RelativeWidth + 2;
+
+		DrawTexture(_Destination, p_pSpriteFont->m_pSpriteSheet, _Src, p_Color);
+
+	}
+
+}
+
 void SpriteBatch::Begin()
 {
 	m_DrawCommands.clear();

@@ -77,12 +77,14 @@
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Simple2DObject.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
+    <ClCompile Include="SpriteFont.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2DScene.h" />
+    <ClInclude Include="CharDesc.h" />
     <ClInclude Include="d3dinclude.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Scene.h" />
@@ -90,6 +92,7 @@
     <ClInclude Include="Simple2DObject_Structs.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="SpriteBatch_Structs.h" />
+    <ClInclude Include="SpriteFont.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />

@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Simple2DObject.h"
 #include "SpriteBatch.h"
+#include "SpriteFont.h"
 
 class Scene2D : public IScene
 {
@@ -31,5 +32,6 @@ private:
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pDeviceContext;
 
+	SpriteFont* m_pArial;
 
 };
