@@ -46,6 +46,9 @@
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{b5be56c8-93e9-42d7-a305-381407390061}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Cube">
+      <UniqueIdentifier>{5a0629fe-229e-439a-b743-425be404d272}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\Cube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +134,12 @@
     <ClInclude Include="Input.h">
       <Filter>Source Files\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Source Files\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube_Structs.h">
+      <Filter>Source Files\Cube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple2DShader.hlsl">
@@ -135,6 +147,9 @@
     </FxCompile>
     <FxCompile Include="SpriteBatchShader.hlsl">
       <Filter>Source Files\SpriteBatch</Filter>
+    </FxCompile>
+    <FxCompile Include="Cube.hlsl">
+      <Filter>Source Files\Cube</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

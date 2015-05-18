@@ -3,7 +3,7 @@
 
 #include "Scene.h"
 #include "Texture.h"
-#include "Simple2DObject.h"
+#include "Cube.h"
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
 #include "FPSCounter.h"
@@ -24,7 +24,7 @@ public:
 	virtual void Render() override;
 
 private:
-	Simple2DObject* m_pFirstObject;
+	Cube* m_pFirstObject;
 	Texture* m_pTexture1;
 	Texture* m_pTexture2;
 

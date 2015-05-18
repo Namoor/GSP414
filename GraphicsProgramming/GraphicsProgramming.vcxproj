@@ -73,6 +73,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="2DScene.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -87,6 +88,8 @@
   <ItemGroup>
     <ClInclude Include="2DScene.h" />
     <ClInclude Include="CharDesc.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Cube_Structs.h" />
     <ClInclude Include="d3dinclude.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="Input.h" />
@@ -102,6 +105,12 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Cube.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="Simple2DShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

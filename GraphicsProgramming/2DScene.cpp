@@ -19,7 +19,7 @@ void Scene2D::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	m_pDevice = p_pDevice;
 	m_pDeviceContext = p_pDevCon;
 
-	m_pFirstObject = new Simple2DObject();
+	m_pFirstObject = new Cube();
 	m_pFirstObject->Initialize(p_pDevice, p_pDevCon);
 
 	m_pSpriteBatch = new SpriteBatch();
@@ -36,6 +36,7 @@ void Scene2D::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 void Scene2D::Update(float p_DeltaTime)
 {
 	m_pFPSCounter->Update(p_DeltaTime);
+	m_pFirstObject->Update(p_DeltaTime);
 }
 
 void Scene2D::Render()
@@ -70,6 +71,8 @@ void Scene2D::Render()
 	//m_pSpriteBatch->DrawTexture(Rect(850, 200, 200, 200), m_pTexture2, Rect(0, 0, 1, 1), D3DXVECTOR4(1, 1, 1, 1));
 
 
+
+	m_pFirstObject->Draw();
 
 	m_pFPSCounter->Render(m_pSpriteBatch, m_pArial);
 	m_pSpriteBatch->End();
