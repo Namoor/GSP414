@@ -8,6 +8,8 @@
 #include "SpriteFont.h"
 #include "FPSCounter.h"
 
+#include "Camera.h"
+
 class Scene2D : public IScene
 {
 public:
@@ -37,4 +39,6 @@ private:
 
 
 	FPSCounter* m_pFPSCounter;
+
+	Camera* m_pCamera;
 };

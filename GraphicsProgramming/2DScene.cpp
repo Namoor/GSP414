@@ -31,12 +31,16 @@ void Scene2D::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	m_pArial = new SpriteFont("Font.fnt", m_pDevice);
 
 	m_pFPSCounter = new FPSCounter();
+
+	m_pCamera = new Camera();
 }
 
 void Scene2D::Update(float p_DeltaTime)
 {
+	m_pCamera->Update(p_DeltaTime);
+
 	m_pFPSCounter->Update(p_DeltaTime);
-	m_pFirstObject->Update(p_DeltaTime);
+	m_pFirstObject->Update(p_DeltaTime, m_pCamera);
 }
 
 void Scene2D::Render()
@@ -45,13 +49,13 @@ void Scene2D::Render()
 	m_pSpriteBatch->Begin();
 	
 	//if(Keydown Space) Zeichne Coins
-	if(Input::GetInstance()->GetKey(KeyCode::A))
-	for (int x = 0; x < 1000; x++)
-	{
-		int xPos = rand() % 1000;
-		int yPos = rand() % 1000;
-		m_pSpriteBatch->DrawTexture(Rect(xPos, yPos, 64, 64), m_pTexture1);
-	}
+	//if(Input::GetInstance()->GetKey(KeyCode::A))
+	//for (int x = 0; x < 1000; x++)
+	//{
+	//	int xPos = rand() % 1000;
+	//	int yPos = rand() % 1000;
+	//	m_pSpriteBatch->DrawTexture(Rect(xPos, yPos, 64, 64), m_pTexture1);
+	//}
 
 	
 	m_pSpriteBatch->DrawString(m_pArial, "Hello World", 200, 0, 48, D3DXVECTOR4(1, 1, 1, 1));

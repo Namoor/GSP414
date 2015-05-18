@@ -41,35 +41,35 @@ void Cube::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 
 	Cube_Vertices _Vertices[8];
 
-	_Vertices[0].Position = D3DXVECTOR3(-0.2f, -0.2f, 0.2f);
+	_Vertices[0].Position = D3DXVECTOR3(-0.5f, -0.5f, -0.5f);
 	_Vertices[0].Color = D3DXVECTOR4(1, 0, 0, 1);
 	_Vertices[0].UV = D3DXVECTOR2(0, 1);
 
-	_Vertices[1].Position = D3DXVECTOR3(0.2f, -0.2f, 0.2f);
+	_Vertices[1].Position = D3DXVECTOR3(0.5f, -0.5f, -0.5f);
 	_Vertices[1].Color = D3DXVECTOR4(1, 0, 0, 1);
 	_Vertices[1].UV = D3DXVECTOR2(1, 1);
 
-	_Vertices[2].Position = D3DXVECTOR3(-0.2f, 0.2f, 0.2f);
+	_Vertices[2].Position = D3DXVECTOR3(-0.5f, 0.5f, -0.5f);
 	_Vertices[2].Color = D3DXVECTOR4(1, 0, 0, 1);
 	_Vertices[2].UV = D3DXVECTOR2(0, 0);
 
-	_Vertices[3].Position = D3DXVECTOR3(0.2f, 0.2f, 0.2f);
+	_Vertices[3].Position = D3DXVECTOR3(0.5f, 0.5f, -0.5f);
 	_Vertices[3].Color = D3DXVECTOR4(1, 0, 0, 1);
 	_Vertices[3].UV = D3DXVECTOR2(1, 0);
 
-	_Vertices[4].Position = D3DXVECTOR3(-0.2f, -0.2f, 0.6f);
+	_Vertices[4].Position = D3DXVECTOR3(-0.5f, -0.5f, 0.5f);
 	_Vertices[4].Color = D3DXVECTOR4(0, 0, 1, 1);
 	_Vertices[4].UV = D3DXVECTOR2(0, 1);
 
-	_Vertices[5].Position = D3DXVECTOR3(0.2f, -0.2f, 0.6f);
+	_Vertices[5].Position = D3DXVECTOR3(0.5f, -0.5f, 0.5f);
 	_Vertices[5].Color = D3DXVECTOR4(0, 0, 1, 1);
 	_Vertices[5].UV = D3DXVECTOR2(1, 1);
 
-	_Vertices[6].Position = D3DXVECTOR3(-0.2f, 0.2f, 0.6f);
+	_Vertices[6].Position = D3DXVECTOR3(-0.5f, 0.5f, 0.5f);
 	_Vertices[6].Color = D3DXVECTOR4(0, 0, 1, 1);
 	_Vertices[6].UV = D3DXVECTOR2(0, 0);
 
-	_Vertices[7].Position = D3DXVECTOR3(0.2f, 0.2f, 0.6f);
+	_Vertices[7].Position = D3DXVECTOR3(0.5f, 0.5f, 0.5f);
 	_Vertices[7].Color = D3DXVECTOR4(0, 0, 1, 1);
 	_Vertices[7].UV = D3DXVECTOR2(1, 0);
 
@@ -267,18 +267,21 @@ void Cube::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 	m_pDevice->CreateBuffer(&_ConstantBufferDesc, nullptr, &m_pMatrixBuffer);
 }
 
-void Cube::Update(float DeltaTime)
+void Cube::Update(float DeltaTime, Camera* p_pCamera)
 {
 	// Rotation vom Cube anpassen
 	m_TimePassedSinceGameStart += DeltaTime;
 
-	D3DXMATRIX _TransformMatrix;
+	Cube_ConstantBuffer _MatrixBufferData;
 
-	D3DXMatrixIdentity(&_TransformMatrix);
+	D3DXMATRIX _WorldMatrix;
+	D3DXMatrixRotationY(&_WorldMatrix, m_TimePassedSinceGameStart * 0.0f);
 
-	D3DXMatrixRotationY(&_TransformMatrix, m_TimePassedSinceGameStart * 0.2f);
+	
+	_MatrixBufferData.m_WorldViewProjection = _WorldMatrix * p_pCamera->GetViewMatrix() * p_pCamera->GetProjectionMatrix();
 
-	m_pDevCon->UpdateSubresource(m_pMatrixBuffer, 0, nullptr, &_TransformMatrix, 0, 0);
+
+	m_pDevCon->UpdateSubresource(m_pMatrixBuffer, 0, nullptr, &_MatrixBufferData, 0, 0);
 }
 
 void Cube::Draw()

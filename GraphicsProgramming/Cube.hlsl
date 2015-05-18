@@ -7,7 +7,7 @@ struct VertexOut
 
 cbuffer Matrizen
 {
-	float4x4 WorldMatrix;
+	float4x4 WorldViewProjectionMatrix;
 };
 
 Texture2D gTexture;
@@ -18,7 +18,7 @@ VertexOut VShader(float4 Position : POSITION, float4 Color : COLOR, float2 UV : 
 {
 	VertexOut Output;
 
-	Output.pos = mul(WorldMatrix, Position);
+	Output.pos = mul(WorldViewProjectionMatrix, Position);
 	Output.col = Color;
 	Output.UV = UV;
 
