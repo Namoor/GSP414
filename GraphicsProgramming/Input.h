@@ -1,4 +1,5 @@
 #pragma once
+#include "d3dinclude.h"
 #include <Windows.h>
 class KeyCode
 {
@@ -187,6 +188,9 @@ public:
 	bool GetKeyLastFrame(KeyCode::Key p_Key);
 	bool GetKeyDown(KeyCode::Key p_Key);
 
+
+	D3DXVECTOR2 GetMousePosition();
+	void SetMousePosition(D3DXVECTOR2 p_Position);
 
 	void Update();
 private:

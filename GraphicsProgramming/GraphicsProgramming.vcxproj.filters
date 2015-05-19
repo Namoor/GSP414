@@ -52,6 +52,9 @@
     <Filter Include="Source Files\Camera">
       <UniqueIdentifier>{5fa069d8-f2b6-4e4c-9b6f-9b1dc870248d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Plane">
+      <UniqueIdentifier>{2a4dfa93-6a2f-459a-a3a6-09562272050e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source Files\Plane</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +154,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Source Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Source Files\Plane</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane_Structs.h">
+      <Filter>Source Files\Plane</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

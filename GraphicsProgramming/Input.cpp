@@ -46,3 +46,18 @@ bool Input::GetKeyDown(KeyCode::Key p_KeyCode)
 {
 	return m_KeyIsDown[p_KeyCode] && !m_KeyWasDown[p_KeyCode];
 }
+
+
+D3DXVECTOR2 Input::GetMousePosition()
+{
+	POINT _CurserPosition;
+
+	GetCursorPos(&_CurserPosition);
+
+	return D3DXVECTOR2(_CurserPosition.x, _CurserPosition.y);
+}
+
+void Input::SetMousePosition(D3DXVECTOR2 p_Position)
+{
+	SetCursorPos(p_Position.x, p_Position.y);
+}

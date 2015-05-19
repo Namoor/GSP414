@@ -14,8 +14,13 @@ public:
 	void Update(float DeltaTime);
 
 	void Move(D3DXVECTOR3 p_Movement, bool IsInWorldSpace);
+	void RotateX(float p_Rotation, bool IsInWorldSpace);
+	void RotateY(float p_Rotation, bool IsInWorldSpace);
+	void RotateZ(float p_Rotation, bool IsInWorldSpace);
 
 	void UpdateViewMatrix();
+
+
 
 private:
 	D3DXMATRIX m_Projection;
@@ -25,4 +30,7 @@ private:
 	D3DXVECTOR3 m_Direction;
 	D3DXVECTOR3 m_Up;
 	D3DXVECTOR3 m_Right;
+	float m_DistanceToTarget;
+
+	D3DXVECTOR2 m_SavedMousePos;
 };
