@@ -1,7 +1,7 @@
 #pragma once
 
 #include "d3dinclude.h"
-
+#include "Camera.h"
 
 class Plane
 {
@@ -12,9 +12,11 @@ public:
 	void Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon, int p_XSize, int p_YSize);
 
 
-	void Update(float DeltaTime);
+	void Update(float DeltaTime, Camera* p_pCamera);
 	void Draw();
 
+
+	float GetHeightAt(int x, int y);
 
 private:
 	ID3D11Buffer* m_pVertexBuffer;
@@ -27,7 +29,7 @@ private:
 
 	ID3D11Buffer* m_pMatrixConstantBuffer;
 
-
+	int IndexCount;
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pDevCon;
 };

@@ -30,6 +30,9 @@ void Scene2D::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 
 	m_pArial = new SpriteFont("Font.fnt", m_pDevice);
 
+	m_pPlane = new Plane();
+	m_pPlane->Init(p_pDevice, p_pDevCon, 100, 100);
+
 	m_pFPSCounter = new FPSCounter();
 
 	m_pCamera = new Camera();
@@ -39,12 +42,17 @@ void Scene2D::Update(float p_DeltaTime)
 {
 	m_pCamera->Update(p_DeltaTime);
 
+	m_pPlane->Update(p_DeltaTime, m_pCamera);
+
 	m_pFPSCounter->Update(p_DeltaTime);
 	m_pFirstObject->Update(p_DeltaTime, m_pCamera);
 }
 
 void Scene2D::Render()
 {
+	m_pPlane->Draw();
+	//m_pFirstObject->Draw();
+
 	//m_pFirstObject->Draw();
 	m_pSpriteBatch->Begin();
 	
@@ -76,7 +84,6 @@ void Scene2D::Render()
 
 
 
-	m_pFirstObject->Draw();
 
 	m_pFPSCounter->Render(m_pSpriteBatch, m_pArial);
 	m_pSpriteBatch->End();

@@ -7,7 +7,7 @@
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
 #include "FPSCounter.h"
-
+#include "Plane.h"
 #include "Camera.h"
 
 class Scene2D : public IScene
@@ -29,6 +29,8 @@ private:
 	Cube* m_pFirstObject;
 	Texture* m_pTexture1;
 	Texture* m_pTexture2;
+
+	Plane* m_pPlane;
 
 	SpriteBatch* m_pSpriteBatch;
 

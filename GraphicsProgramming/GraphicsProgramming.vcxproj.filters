@@ -172,5 +172,8 @@
     <FxCompile Include="Cube.hlsl">
       <Filter>Source Files\Cube</Filter>
     </FxCompile>
+    <FxCompile Include="Plane.hlsl">
+      <Filter>Source Files\Plane</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
