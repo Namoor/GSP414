@@ -45,6 +45,6 @@ private:
 	ID3D11RenderTargetView* m_pBackbuffer;
 
 
-
+	ID3D11DepthStencilView* m_pDepthStencilView;
 
 };

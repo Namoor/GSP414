@@ -2,6 +2,8 @@
 
 #include "d3dinclude.h"
 #include "Camera.h"
+#include "Texture.h"
+
 
 class Plane
 {
@@ -28,6 +30,10 @@ private:
 	ID3D11VertexShader* m_pVertexShader;
 
 	ID3D11Buffer* m_pMatrixConstantBuffer;
+
+	ID3D11SamplerState* m_pTextureSampler;
+
+	Texture* m_pTexture;
 
 	int IndexCount;
 	ID3D11Device* m_pDevice;

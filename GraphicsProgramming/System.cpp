@@ -133,12 +133,45 @@ void System::InitD3D()
 	//ID3D11RenderTargetView für das Zeichnen/Rendern in eine Textur
 	//ID3D11ShaderResourceView für das Zeichnen/Rendern von einer Textur
 
+
+	// BackBuffer
 	ID3D11Texture2D* _pBackBufferTexture = nullptr;
 	m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&_pBackBufferTexture);
 
 	m_pDevice->CreateRenderTargetView(_pBackBufferTexture, nullptr, &m_pBackbuffer);
 
-	m_pDeviceContext->OMSetRenderTargets(1, &m_pBackbuffer, nullptr);
+	// DepthBuffer
+
+	ID3D11Texture2D* _pDepthBuffer = nullptr;
+
+	D3D11_TEXTURE2D_DESC _BackBufferDesc;
+	ZeroMemory(&_BackBufferDesc, sizeof(_BackBufferDesc));
+
+	_BackBufferDesc.Width = m_PixelX;
+	_BackBufferDesc.Height = m_PixelY;
+	_BackBufferDesc.ArraySize = 1;
+	_BackBufferDesc.MipLevels = 1;
+	_BackBufferDesc.SampleDesc.Count = 4;
+	_BackBufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D32_FLOAT;
+	_BackBufferDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
+
+
+	m_pDevice->CreateTexture2D(&_BackBufferDesc, nullptr, &_pDepthBuffer);
+
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC _DSDesc;
+	ZeroMemory(&_DSDesc, sizeof(_DSDesc));
+
+	_DSDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D32_FLOAT;
+	_DSDesc.Texture2D.MipSlice = 0;
+	_DSDesc.ViewDimension = D3D11_DSV_DIMENSION::D3D11_DSV_DIMENSION_TEXTURE2DMS;
+
+
+	m_pDevice->CreateDepthStencilView(_pDepthBuffer,&_DSDesc , &m_pDepthStencilView);
+
+	_pDepthBuffer->Release();
+
+	m_pDeviceContext->OMSetRenderTargets(1, &m_pBackbuffer, m_pDepthStencilView);
 
 
 	D3D11_VIEWPORT _ViewPort;
@@ -185,6 +218,8 @@ void System::Run(IScene* p_pScene)
 		Color[3] = 1; // Alpha
 
 		m_pDeviceContext->ClearRenderTargetView(m_pBackbuffer, Color);
+		m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH, 1.0f, 0);
+
 
 		Input::GetInstance()->Update();
 
