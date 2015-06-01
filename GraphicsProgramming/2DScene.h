@@ -10,6 +10,8 @@
 #include "Plane.h"
 #include "Camera.h"
 
+#include "Pyramid.h"
+
 class Scene2D : public IScene
 {
 public:
@@ -31,6 +33,8 @@ private:
 	Texture* m_pTexture2;
 
 	Plane* m_pPlane;
+	Pyramid* m_pPyramid;
+	
 
 	SpriteBatch* m_pSpriteBatch;
 

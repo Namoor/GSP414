@@ -55,6 +55,9 @@
     <Filter Include="Source Files\Plane">
       <UniqueIdentifier>{2a4dfa93-6a2f-459a-a3a6-09562272050e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Pyramid">
+      <UniqueIdentifier>{f3a13334-a93f-46bc-97d6-014c3b5396f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -98,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="Plane.cpp">
       <Filter>Source Files\Plane</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyramid.cpp">
+      <Filter>Source Files\Pyramid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +166,15 @@
     </ClInclude>
     <ClInclude Include="Plane_Structs.h">
       <Filter>Source Files\Plane</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyramid.h">
+      <Filter>Source Files\Pyramid</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyramid_Structs.h">
+      <Filter>Source Files\Pyramid</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>Source Files\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,11 +7,17 @@ Scene2D::Scene2D()
 {
 	m_pFirstObject = nullptr;
 	m_pSpriteBatch = nullptr;
+
+	m_pPyramid = nullptr;
 }
 
 Scene2D::~Scene2D()
 {
-
+	if (m_pPyramid)
+	{
+		delete m_pPyramid;
+		m_pPyramid = nullptr;
+	}
 }
 
 void Scene2D::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
@@ -33,6 +39,9 @@ void Scene2D::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	m_pPlane = new Plane();
 	m_pPlane->Init(p_pDevice, p_pDevCon, 100, 100);
 
+	m_pPyramid = new Pyramid();
+	m_pPyramid->Init(p_pDevice, p_pDevCon);
+
 	m_pFPSCounter = new FPSCounter();
 
 	m_pCamera = new Camera();
@@ -44,6 +53,8 @@ void Scene2D::Update(float p_DeltaTime)
 
 	m_pPlane->Update(p_DeltaTime, m_pCamera);
 
+	m_pPyramid->Update(p_DeltaTime, m_pCamera);
+
 	m_pFPSCounter->Update(p_DeltaTime);
 	m_pFirstObject->Update(p_DeltaTime, m_pCamera);
 }
@@ -51,6 +62,8 @@ void Scene2D::Update(float p_DeltaTime)
 void Scene2D::Render()
 {
 	m_pPlane->Draw();
+	m_pPyramid->Draw();
+
 	//m_pFirstObject->Draw();
 
 	//m_pFirstObject->Draw();

@@ -79,6 +79,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Simple2DObject.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
@@ -96,8 +97,11 @@
     <ClInclude Include="d3dinclude.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Macros.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Plane_Structs.h" />
+    <ClInclude Include="Pyramid.h" />
+    <ClInclude Include="Pyramid_Structs.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simple2DObject.h" />
