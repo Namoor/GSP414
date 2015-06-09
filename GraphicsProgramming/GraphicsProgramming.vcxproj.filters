@@ -190,5 +190,8 @@
     <FxCompile Include="Plane.hlsl">
       <Filter>Source Files\Plane</Filter>
     </FxCompile>
+    <FxCompile Include="Pyramid.hlsl">
+      <Filter>Source Files\Pyramid</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

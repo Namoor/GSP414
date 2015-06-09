@@ -20,7 +20,7 @@ VertexOut VShader(float4 Position : POSITION0, float4 Color : COLOR0, float2 UV 
 	VertexOut Output;
 
 	Output.pos = mul(WorldViewProjectionMatrix, Position);
-	Output.col = Color;
+	Output.col = float4(Color.rgb, 1);
 	Output.UV = UV;
 	Output.Normal = Normal;
 
@@ -29,7 +29,7 @@ VertexOut VShader(float4 Position : POSITION0, float4 Color : COLOR0, float2 UV 
 
 float4 PShader(VertexOut p_Input) : SV_TARGET
 {
-	float LightIntensity = saturate(0.3 + 0.7 * dot(p_Input.Normal, float3(0, -1, 0)));
+	float LightIntensity = 0.3 + saturate(0.7 * dot(p_Input.Normal, float3(0, 1, 0)));
 	float4 TexColor = gTexture.Sample(gSampler, p_Input.UV);
 	return float4(1.5 * p_Input.col.rgb * TexColor.rgb * LightIntensity, 1);
 }

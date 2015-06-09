@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Camera.h"
-
+#include "Texture.h"
 #include "d3dinclude.h"
 
 class Pyramid
@@ -31,4 +31,6 @@ private:
 	ID3D11Buffer* m_pConstantBuffer;
 
 	ID3D11InputLayout* m_pInputLayout;
+
+	Texture* m_pTexture;
 };
