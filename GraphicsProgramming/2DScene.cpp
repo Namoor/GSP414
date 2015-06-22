@@ -53,7 +53,7 @@ void Scene2D::Update(float p_DeltaTime)
 
 	m_pPlane->Update(p_DeltaTime, m_pCamera);
 
-	m_pPyramid->Update(p_DeltaTime, m_pCamera);
+	//m_pPyramid->Update(p_DeltaTime, m_pCamera);
 
 	m_pFPSCounter->Update(p_DeltaTime);
 	m_pFirstObject->Update(p_DeltaTime, m_pCamera);
@@ -62,7 +62,7 @@ void Scene2D::Update(float p_DeltaTime)
 void Scene2D::Render()
 {
 	m_pPlane->Draw();
-	m_pPyramid->Draw();
+	//m_pPyramid->Draw();
 
 	//m_pFirstObject->Draw();
 

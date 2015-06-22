@@ -18,6 +18,8 @@ Plane::Plane()
 	m_pInputLayout = nullptr;
 
 	m_pMatrixConstantBuffer = nullptr;
+
+	m_OffsetFactor = 0;
 }
 
 Plane::~Plane()
@@ -249,6 +251,18 @@ void Plane::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon, int p_
 
 	m_pDevice->CreateBuffer(&_MatrixBufferDesc, nullptr, &m_pMatrixConstantBuffer);
 
+
+	D3D11_BUFFER_DESC _PixelBufferDesc;
+	ZeroMemory(&_PixelBufferDesc, sizeof(_PixelBufferDesc));
+
+	_PixelBufferDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
+	_PixelBufferDesc.ByteWidth = 16;
+	_PixelBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
+	_PixelBufferDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
+
+
+	m_pDevice->CreateBuffer(&_PixelBufferDesc, nullptr, &m_pPixelConstantBuffer);
+
 	// ----------------------------------------- Sampler State ------------------------------------------------------------------
 
 	D3D11_SAMPLER_DESC _SamplerStateDesc;
@@ -276,7 +290,10 @@ void Plane::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon, int p_
 
 void Plane::Update(float DeltaTime, Camera* p_pCamera)
 {
-	D3DXMATRIX _MatrixData = p_pCamera->GetViewMatrix() * p_pCamera->GetProjectionMatrix();
+	D3DXMATRIX WorldMatrix;
+	D3DXMatrixIdentity(&WorldMatrix);
+
+	D3DXMATRIX _MatrixData = WorldMatrix * p_pCamera->GetViewMatrix() * p_pCamera->GetProjectionMatrix();
 
 	D3D11_MAPPED_SUBRESOURCE _MatrixMapped;
 
@@ -285,6 +302,19 @@ void Plane::Update(float DeltaTime, Camera* p_pCamera)
 	memcpy(_MatrixMapped.pData, &_MatrixData, 64);
 
 	m_pDevCon->Unmap(m_pMatrixConstantBuffer, 0);
+
+	m_OffsetFactor += DeltaTime;
+
+	D3DXVECTOR2 _Offset(m_OffsetFactor, -m_OffsetFactor);
+
+	D3D11_MAPPED_SUBRESOURCE _PixelMapped;
+
+	m_pDevCon->Map(m_pPixelConstantBuffer, 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &_PixelMapped);
+
+	memcpy(_PixelMapped.pData, &_Offset, 8);
+
+	m_pDevCon->Unmap(m_pPixelConstantBuffer, 0);
+
 }
 
 void Plane::Draw()
@@ -304,6 +334,7 @@ void Plane::Draw()
 	m_pDevCon->PSSetSamplers(0, 1, &m_pTextureSampler);
 
 	m_pDevCon->VSSetConstantBuffers(0, 1, &m_pMatrixConstantBuffer);
+	m_pDevCon->PSSetConstantBuffers(0, 1, &m_pPixelConstantBuffer);
 
 
 

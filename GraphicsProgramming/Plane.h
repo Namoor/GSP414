@@ -31,6 +31,10 @@ private:
 
 	ID3D11Buffer* m_pMatrixConstantBuffer;
 
+	ID3D11Buffer* m_pPixelConstantBuffer;
+
+	float m_OffsetFactor;
+
 	ID3D11SamplerState* m_pTextureSampler;
 
 	Texture* m_pTexture;
