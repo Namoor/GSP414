@@ -36,7 +36,7 @@ void Scene2D::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 
 	m_pArial = new SpriteFont("Font.fnt", m_pDevice);
 
-	m_pPlane = new Plane();
+	m_pPlane = new SplatMapPlane();
 	m_pPlane->Init(p_pDevice, p_pDevCon, 100, 100);
 
 	m_pPyramid = new Pyramid();

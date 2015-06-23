@@ -58,6 +58,9 @@
     <Filter Include="Source Files\Pyramid">
       <UniqueIdentifier>{f3a13334-a93f-46bc-97d6-014c3b5396f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\SplatMapPlane">
+      <UniqueIdentifier>{c0d4aa02-27c4-4a57-b6b4-0e7752f92f96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -104,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="Pyramid.cpp">
       <Filter>Source Files\Pyramid</Filter>
+    </ClCompile>
+    <ClCompile Include="SplatMapPlane.cpp">
+      <Filter>Source Files\SplatMapPlane</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +182,12 @@
     <ClInclude Include="Macros.h">
       <Filter>Source Files\System</Filter>
     </ClInclude>
+    <ClInclude Include="SplatMapPlane.h">
+      <Filter>Source Files\SplatMapPlane</Filter>
+    </ClInclude>
+    <ClInclude Include="SplatMapPlane_Structs.h">
+      <Filter>Source Files\SplatMapPlane</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple2DShader.hlsl">
@@ -192,6 +204,9 @@
     </FxCompile>
     <FxCompile Include="Pyramid.hlsl">
       <Filter>Source Files\Pyramid</Filter>
+    </FxCompile>
+    <FxCompile Include="SplatMapPlane.hlsl">
+      <Filter>Source Files\SplatMapPlane</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

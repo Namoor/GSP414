@@ -82,6 +82,7 @@
     <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Simple2DObject.cpp" />
+    <ClCompile Include="SplatMapPlane.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="SpriteFont.cpp" />
     <ClCompile Include="System.cpp" />
@@ -106,6 +107,8 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simple2DObject.h" />
     <ClInclude Include="Simple2DObject_Structs.h" />
+    <ClInclude Include="SplatMapPlane.h" />
+    <ClInclude Include="SplatMapPlane_Structs.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="SpriteBatch_Structs.h" />
     <ClInclude Include="SpriteFont.h" />
@@ -135,6 +138,14 @@
     <FxCompile Include="Simple2DShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="SplatMapPlane.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
