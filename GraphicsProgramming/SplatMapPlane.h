@@ -39,7 +39,10 @@ private:
 
 	Texture* m_pSplatTexture;
 
+	Texture* m_pStoneTexture;
 	Texture* m_pGrassTexture;
+	Texture* m_pSandTexture;
+	Texture* m_pSnowTexture;
 
 	int IndexCount;
 	ID3D11Device* m_pDevice;

@@ -37,8 +37,11 @@ void SplatMapPlane::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	m_pDevCon = p_pDevCon;
 
 	m_pSplatTexture = new Texture("SplatMap.png", p_pDevice);
-	
+
+	m_pStoneTexture = new Texture("Terrain_Rock.jpg", p_pDevice);
 	m_pGrassTexture = new Texture("Terrain_Grass.jpg", p_pDevice);
+	m_pSandTexture = new Texture("Terrain_Sand.jpg", p_pDevice);
+	m_pSnowTexture = new Texture("Terrain_Snow.jpg", p_pDevice);
 
 
 	IndexCount = (p_XSize*p_YSize * 6);
@@ -68,7 +71,8 @@ void SplatMapPlane::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 			_Array[y * (p_XSize + 1) + x].m_Color = D3DXVECTOR4(1, 1, 1, 1);
 			_Array[y * (p_XSize + 1) + x].m_Normal = D3DXVECTOR3(0, 1, 0);
 			_Array[y * (p_XSize + 1) + x].m_Position = D3DXVECTOR3(x, 0, y);
-			_Array[y * (p_XSize + 1) + x].m_UV = D3DXVECTOR2(x / (float)p_XSize, y / (float)p_YSize);
+			_Array[y * (p_XSize + 1) + x].m_UV = D3DXVECTOR2(x, y);
+			_Array[y * (p_XSize + 1) + x].m_UVSplat = D3DXVECTOR2(x / (float)p_XSize, y / (float)p_YSize);
 		}
 	}
 
@@ -162,7 +166,7 @@ void SplatMapPlane::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 
 	// ----------------------------------------- InputLayout -----------------------------------------------------------
 
-	D3D11_INPUT_ELEMENT_DESC _IED[4];
+	D3D11_INPUT_ELEMENT_DESC _IED[5];
 	_IED[0].AlignedByteOffset = 0;
 	_IED[0].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
 	_IED[0].InputSlot = 0;
@@ -186,15 +190,23 @@ void SplatMapPlane::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	_IED[2].SemanticIndex = 0;
 
 	_IED[3].AlignedByteOffset = 36;
-	_IED[3].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
+	_IED[3].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
 	_IED[3].InputSlot = 0;
 	_IED[3].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
 	_IED[3].InstanceDataStepRate = 0;
-	_IED[3].SemanticName = "NORMAL";
-	_IED[3].SemanticIndex = 0;
+	_IED[3].SemanticName = "TEXCOORD";
+	_IED[3].SemanticIndex = 1;
+
+	_IED[4].AlignedByteOffset = 44;
+	_IED[4].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
+	_IED[4].InputSlot = 0;
+	_IED[4].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+	_IED[4].InstanceDataStepRate = 0;
+	_IED[4].SemanticName = "NORMAL";
+	_IED[4].SemanticIndex = 0;
 
 
-	m_pDevice->CreateInputLayout(_IED, 4, _pVertexShader->GetBufferPointer(), _pVertexShader->GetBufferSize(), &m_pInputLayout);
+	m_pDevice->CreateInputLayout(_IED, 5, _pVertexShader->GetBufferPointer(), _pVertexShader->GetBufferSize(), &m_pInputLayout);
 
 	// ------------------------------------- Constant Buffer --------------------------------------------------------------------
 
@@ -292,7 +304,13 @@ void SplatMapPlane::Draw()
 	m_pDevCon->PSSetShader(m_pPixelShader, nullptr, 0);
 
 	m_pDevCon->PSSetShaderResources(0, 1, &m_pSplatTexture->m_pSRV);
-	m_pDevCon->PSSetShaderResources(1, 1, &m_pGrassTexture->m_pSRV);
+
+	m_pDevCon->PSSetShaderResources(1, 1, &m_pStoneTexture->m_pSRV);
+	m_pDevCon->PSSetShaderResources(2, 1, &m_pGrassTexture->m_pSRV);
+	m_pDevCon->PSSetShaderResources(3, 1, &m_pSandTexture->m_pSRV);
+	m_pDevCon->PSSetShaderResources(4, 1, &m_pSnowTexture->m_pSRV);
+
+
 	m_pDevCon->PSSetSamplers(0, 1, &m_pTextureSampler);
 
 	m_pDevCon->VSSetConstantBuffers(0, 1, &m_pMatrixConstantBuffer);
