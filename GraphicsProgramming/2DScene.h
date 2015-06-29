@@ -7,7 +7,7 @@
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
 #include "FPSCounter.h"
-#include "SplatMapPlane.h"
+#include "TilingTerrain.h"
 #include "Camera.h"
 
 #include "Pyramid.h"
@@ -32,7 +32,7 @@ private:
 	Texture* m_pTexture1;
 	Texture* m_pTexture2;
 
-	SplatMapPlane* m_pPlane;
+	TilingTerrain* m_pPlane;
 	Pyramid* m_pPyramid;
 	
 

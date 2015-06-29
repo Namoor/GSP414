@@ -61,6 +61,12 @@
     <Filter Include="Source Files\SplatMapPlane">
       <UniqueIdentifier>{c0d4aa02-27c4-4a57-b6b4-0e7752f92f96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\TilingTerrain">
+      <UniqueIdentifier>{cbf7bcbd-f8c6-45ab-b9ab-0496a8c36500}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TilingTerrain\Data">
+      <UniqueIdentifier>{3b5aff58-c82b-4396-982f-c7478b682790}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -110,6 +116,12 @@
     </ClCompile>
     <ClCompile Include="SplatMapPlane.cpp">
       <Filter>Source Files\SplatMapPlane</Filter>
+    </ClCompile>
+    <ClCompile Include="TilingTerrain.cpp">
+      <Filter>Source Files\TilingTerrain</Filter>
+    </ClCompile>
+    <ClCompile Include="TilingTerrain_Data.cpp">
+      <Filter>Source Files\TilingTerrain\Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +200,15 @@
     <ClInclude Include="SplatMapPlane_Structs.h">
       <Filter>Source Files\SplatMapPlane</Filter>
     </ClInclude>
+    <ClInclude Include="TilingTerrain.h">
+      <Filter>Source Files\TilingTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="TilingTerrain_Structs.h">
+      <Filter>Source Files\TilingTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="TilingTerrain_Data.h">
+      <Filter>Source Files\TilingTerrain\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple2DShader.hlsl">
@@ -207,6 +228,9 @@
     </FxCompile>
     <FxCompile Include="SplatMapPlane.hlsl">
       <Filter>Source Files\SplatMapPlane</Filter>
+    </FxCompile>
+    <FxCompile Include="TilingTerrain.hlsl">
+      <Filter>Source Files\TilingTerrain</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
