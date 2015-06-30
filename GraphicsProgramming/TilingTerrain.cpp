@@ -35,7 +35,7 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	m_pDevCon = p_pDevCon;
 
 	m_pGrassTexture = new Texture("TextureAtlas.png", p_pDevice);
-	
+
 
 	int _TotalFaceCount = p_XSize * p_YSize;
 	int _TotalVertexCount = _TotalFaceCount * 4;
@@ -73,27 +73,59 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 			TilingTerrainType _ObenLinks = p_pData->GetData(x, y + 1);
 			TilingTerrainType _ObenRechts = p_pData->GetData(x + 1, y + 1);
 
+			int TexCoordX = 4;
+			int TexCoordY = 4;
+
+			int _TexCoordID = 0;       // 0000
+			if (_UntenRechts == TilingTerrainType::Grass) _TexCoordID |= 1; // 0001
+			if (_UntenLinks == TilingTerrainType::Grass) _TexCoordID |= 2; // 0010
+			if (_ObenRechts == TilingTerrainType::Grass) _TexCoordID |= 4; // 0100
+			if (_ObenLinks == TilingTerrainType::Grass) _TexCoordID |= 8; // 1000
+
+
+			TexCoordX = _TexCoordID % 4;
+			TexCoordY = _TexCoordID / 4;
+			
+			
+			if (_TexCoordID == 15)
+			{
+				int _Rnd = rand() % 101;
+
+				if (_Rnd  < 70)
+				{
+					// Eines der Random Tiles auswählen
+					int _RandomTileID = rand() % 8;
+
+					if (_Rnd < 15 && _Rnd > 5)
+						_RandomTileID = rand() % 4 + 8;
+					if (_Rnd < 5 )
+						_RandomTileID = rand() % 4 + 12;
+
+					TexCoordX = 4 + _RandomTileID % 4;
+					TexCoordY = _RandomTileID / 4;
+				}
+			}
 
 
 
 			// Unten Links
 			_Array[_FaceIndex * 4 + 0].m_Normal = D3DXVECTOR3(0, 1, 0);
-			_Array[_FaceIndex * 4 + 0].m_UV = D3DXVECTOR2(0 + Offset, 0.125f - Offset);
+			_Array[_FaceIndex * 4 + 0].m_UV = D3DXVECTOR2(TexCoordX * 0.125f + Offset, TexCoordY * 0.125f + 0.125f - Offset);
 			_Array[_FaceIndex * 4 + 0].m_Position = D3DXVECTOR3(x, 0, y);
 
 			// Unten Rechts
 			_Array[_FaceIndex * 4 + 1].m_Normal = D3DXVECTOR3(0, 1, 0);
-			_Array[_FaceIndex * 4 + 1].m_UV = D3DXVECTOR2(0.125f - Offset, 0.125f - Offset);
+			_Array[_FaceIndex * 4 + 1].m_UV = D3DXVECTOR2(TexCoordX * 0.125f + 0.125f - Offset, TexCoordY * 0.125f + 0.125f - Offset);
 			_Array[_FaceIndex * 4 + 1].m_Position = D3DXVECTOR3(x + 1, 0, y);
-			
+
 			// ObenLinks
 			_Array[_FaceIndex * 4 + 2].m_Normal = D3DXVECTOR3(0, 1, 0);
-			_Array[_FaceIndex * 4 + 2].m_UV = D3DXVECTOR2(0 + Offset, 0 + Offset);
+			_Array[_FaceIndex * 4 + 2].m_UV = D3DXVECTOR2(TexCoordX * 0.125f + Offset, TexCoordY * 0.125f + Offset);
 			_Array[_FaceIndex * 4 + 2].m_Position = D3DXVECTOR3(x, 0, y + 1);
-			
+
 			// ObenRechts
 			_Array[_FaceIndex * 4 + 3].m_Normal = D3DXVECTOR3(0, 1, 0);
-			_Array[_FaceIndex * 4 + 3].m_UV = D3DXVECTOR2(0.125f - Offset, 0 + Offset);
+			_Array[_FaceIndex * 4 + 3].m_UV = D3DXVECTOR2(TexCoordX * 0.125f + 0.125f - Offset, TexCoordY * 0.125f + Offset);
 			_Array[_FaceIndex * 4 + 3].m_Position = D3DXVECTOR3(x + 1, 0, y + 1);
 		}
 	}
@@ -102,7 +134,7 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 
 	m_pDevCon->Map(m_pVertexBuffer, 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &_VertexBufferMapped);
 
-	memcpy(_VertexBufferMapped.pData, _Array, (_TotalVertexCount) * sizeof(TilingTerrain_Vertex));
+	memcpy(_VertexBufferMapped.pData, _Array, (_TotalVertexCount)* sizeof(TilingTerrain_Vertex));
 
 	m_pDevCon->Unmap(m_pVertexBuffer, 0);
 
@@ -196,7 +228,7 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	_IED[0].InstanceDataStepRate = 0;
 	_IED[0].SemanticName = "POSITION";
 	_IED[0].SemanticIndex = 0;
-	
+
 	_IED[1].AlignedByteOffset = 12;
 	_IED[1].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
 	_IED[1].InputSlot = 0;
@@ -204,7 +236,7 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	_IED[1].InstanceDataStepRate = 0;
 	_IED[1].SemanticName = "NORMAL";
 	_IED[1].SemanticIndex = 0;
-	
+
 	_IED[2].AlignedByteOffset = 24;
 	_IED[2].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
 	_IED[2].InputSlot = 0;
@@ -296,13 +328,13 @@ void TilingTerrain::Draw()
 	m_pDevCon->PSSetShader(m_pPixelShader, nullptr, 0);
 
 	m_pDevCon->PSSetShaderResources(0, 1, &m_pGrassTexture->m_pSRV);
-	
+
 
 
 	m_pDevCon->PSSetSamplers(0, 1, &m_pTextureSampler);
 
 	m_pDevCon->VSSetConstantBuffers(0, 1, &m_pMatrixConstantBuffer);
-	
+
 
 
 	m_pDevCon->DrawIndexed(IndexCount, 0, 0);

@@ -37,7 +37,13 @@ void Scene2D::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	m_pArial = new SpriteFont("Font.fnt", m_pDevice);
 
 	TilingTerrain_Data* _pData = new TilingTerrain_Data();
-	_pData->Init(100, 100, TilingTerrainType::Grass);
+	_pData->Init(128, 128, TilingTerrainType::Grass);
+
+	//_pData->SetData(2, 2, TilingTerrainType::Dirt);
+	_pData->SetData(2, 1, TilingTerrainType::Dirt);
+	_pData->SetData(1, 2, TilingTerrainType::Dirt);
+	_pData->SetData(3, 2, TilingTerrainType::Dirt);
+	_pData->SetData(2, 3, TilingTerrainType::Dirt);
 
 	m_pPlane = new TilingTerrain();
 	m_pPlane->Init(p_pDevice, p_pDevCon, 100, 100, _pData);
