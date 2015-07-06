@@ -89,6 +89,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TilingTerrain.cpp" />
     <ClCompile Include="TilingTerrain_Data.cpp" />
+    <ClCompile Include="TilingTerrain_Layer.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +119,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TilingTerrain.h" />
     <ClInclude Include="TilingTerrain_Data.h" />
+    <ClInclude Include="TilingTerrain_Layer.h" />
     <ClInclude Include="TilingTerrain_Structs.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>

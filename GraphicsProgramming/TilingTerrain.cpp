@@ -34,7 +34,12 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	m_pDevice = p_pDevice;
 	m_pDevCon = p_pDevCon;
 
-	m_pGrassTexture = new Texture("TextureAtlas.png", p_pDevice);
+	m_pGrassTexture = new Texture("wc3_atlas.png", p_pDevice);
+
+	m_pGrass = new TilingTerrain_Layer(0, 0.00f, 1, 0.25f, true, TilingTerrainType::Grass);
+	m_pSnow =  new TilingTerrain_Layer(0, 0.25f, 1, 0.25f, true, TilingTerrainType::Snow);
+	m_pStone = new TilingTerrain_Layer(0, 0.50f, 1, 0.25f, true, TilingTerrainType::Stone);
+	m_pCity =  new TilingTerrain_Layer(0, 0.75f, 1, 0.25f, false, TilingTerrainType::City);
 
 
 	int _TotalFaceCount = p_XSize * p_YSize;
@@ -73,7 +78,24 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 			TilingTerrainType _ObenLinks = p_pData->GetData(x, y + 1);
 			TilingTerrainType _ObenRechts = p_pData->GetData(x + 1, y + 1);
 
-			int TexCoordX = 4;
+			float TexX0;
+			float TexY0;
+			float TexX1;
+			float TexY1;
+			float TexX2;
+			float TexY2;
+			float TexX3;
+			float TexY3;
+
+			float TexXOffset = 1 / 8.0f;
+			float TexYOffset = 1 / 16.0f;
+
+			m_pSnow->GetTexCoords(_ObenLinks, _ObenRechts, _UntenLinks, _UntenRechts, &TexX0, &TexY0, false);
+			m_pGrass->GetTexCoords(_ObenLinks, _ObenRechts, _UntenLinks, _UntenRechts, &TexX1, &TexY1, false);
+			m_pCity->GetTexCoords(_ObenLinks, _ObenRechts, _UntenLinks, _UntenRechts, &TexX2, &TexY2, false);
+			m_pStone->GetTexCoords(_ObenLinks, _ObenRechts, _UntenLinks, _UntenRechts, &TexX3, &TexY3, true);
+
+			/*int TexCoordX = 4;
 			int TexCoordY = 4;
 
 			int _TexCoordID = 0;       // 0000
@@ -106,26 +128,38 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 				}
 			}
 
-
+			*/
 
 			// Unten Links
 			_Array[_FaceIndex * 4 + 0].m_Normal = D3DXVECTOR3(0, 1, 0);
-			_Array[_FaceIndex * 4 + 0].m_UV = D3DXVECTOR2(TexCoordX * 0.125f + Offset, TexCoordY * 0.125f + 0.125f - Offset);
+			_Array[_FaceIndex * 4 + 0].m_UV0 = D3DXVECTOR2(TexX0 + Offset, TexY0 + TexYOffset - Offset);
+			_Array[_FaceIndex * 4 + 0].m_UV1 = D3DXVECTOR2(TexX1 + Offset, TexY1 + TexYOffset - Offset);
+			_Array[_FaceIndex * 4 + 0].m_UV2 = D3DXVECTOR2(TexX2 + Offset, TexY2 + TexYOffset - Offset);
+			_Array[_FaceIndex * 4 + 0].m_UV3 = D3DXVECTOR2(TexX3 + Offset, TexY3 + TexYOffset - Offset);
 			_Array[_FaceIndex * 4 + 0].m_Position = D3DXVECTOR3(x, 0, y);
 
 			// Unten Rechts
 			_Array[_FaceIndex * 4 + 1].m_Normal = D3DXVECTOR3(0, 1, 0);
-			_Array[_FaceIndex * 4 + 1].m_UV = D3DXVECTOR2(TexCoordX * 0.125f + 0.125f - Offset, TexCoordY * 0.125f + 0.125f - Offset);
+			_Array[_FaceIndex * 4 + 1].m_UV0 = D3DXVECTOR2(TexX0 + TexXOffset - Offset, TexY0 + TexYOffset - Offset);
+			_Array[_FaceIndex * 4 + 1].m_UV1 = D3DXVECTOR2(TexX1 + TexXOffset - Offset, TexY1 + TexYOffset - Offset);
+			_Array[_FaceIndex * 4 + 1].m_UV2 = D3DXVECTOR2(TexX2 + TexXOffset - Offset, TexY2 + TexYOffset - Offset);
+			_Array[_FaceIndex * 4 + 1].m_UV3 = D3DXVECTOR2(TexX3 + TexXOffset - Offset, TexY3 + TexYOffset - Offset);
 			_Array[_FaceIndex * 4 + 1].m_Position = D3DXVECTOR3(x + 1, 0, y);
 
 			// ObenLinks
 			_Array[_FaceIndex * 4 + 2].m_Normal = D3DXVECTOR3(0, 1, 0);
-			_Array[_FaceIndex * 4 + 2].m_UV = D3DXVECTOR2(TexCoordX * 0.125f + Offset, TexCoordY * 0.125f + Offset);
+			_Array[_FaceIndex * 4 + 2].m_UV0 = D3DXVECTOR2(TexX0 + Offset, TexY0 + Offset);
+			_Array[_FaceIndex * 4 + 2].m_UV1 = D3DXVECTOR2(TexX1 + Offset, TexY1 + Offset);
+			_Array[_FaceIndex * 4 + 2].m_UV2 = D3DXVECTOR2(TexX2 + Offset, TexY2 + Offset);
+			_Array[_FaceIndex * 4 + 2].m_UV3 = D3DXVECTOR2(TexX3 + Offset, TexY3 + Offset);
 			_Array[_FaceIndex * 4 + 2].m_Position = D3DXVECTOR3(x, 0, y + 1);
 
 			// ObenRechts
 			_Array[_FaceIndex * 4 + 3].m_Normal = D3DXVECTOR3(0, 1, 0);
-			_Array[_FaceIndex * 4 + 3].m_UV = D3DXVECTOR2(TexCoordX * 0.125f + 0.125f - Offset, TexCoordY * 0.125f + Offset);
+			_Array[_FaceIndex * 4 + 3].m_UV0 = D3DXVECTOR2(TexX0 + TexXOffset - Offset, TexY0 + Offset);
+			_Array[_FaceIndex * 4 + 3].m_UV1 = D3DXVECTOR2(TexX1 + TexXOffset - Offset, TexY1 + Offset);
+			_Array[_FaceIndex * 4 + 3].m_UV2 = D3DXVECTOR2(TexX2 + TexXOffset - Offset, TexY2 + Offset);
+			_Array[_FaceIndex * 4 + 3].m_UV3 = D3DXVECTOR2(TexX3 + TexXOffset - Offset, TexY3 + Offset);
 			_Array[_FaceIndex * 4 + 3].m_Position = D3DXVECTOR3(x + 1, 0, y + 1);
 		}
 	}
@@ -220,7 +254,7 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 
 	// ----------------------------------------- InputLayout -----------------------------------------------------------
 
-	D3D11_INPUT_ELEMENT_DESC _IED[3];
+	D3D11_INPUT_ELEMENT_DESC _IED[6];
 	_IED[0].AlignedByteOffset = 0;
 	_IED[0].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
 	_IED[0].InputSlot = 0;
@@ -246,7 +280,34 @@ void TilingTerrain::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 	_IED[2].SemanticIndex = 0;
 
 
-	m_pDevice->CreateInputLayout(_IED, 3, _pVertexShader->GetBufferPointer(), _pVertexShader->GetBufferSize(), &m_pInputLayout);
+	_IED[3].AlignedByteOffset = 32;
+	_IED[3].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
+	_IED[3].InputSlot = 0;
+	_IED[3].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+	_IED[3].InstanceDataStepRate = 0;
+	_IED[3].SemanticName = "TEXCOORD";
+	_IED[3].SemanticIndex = 1;
+
+
+	_IED[4].AlignedByteOffset = 40;
+	_IED[4].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
+	_IED[4].InputSlot = 0;
+	_IED[4].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+	_IED[4].InstanceDataStepRate = 0;
+	_IED[4].SemanticName = "TEXCOORD";
+	_IED[4].SemanticIndex = 2;
+
+
+	_IED[5].AlignedByteOffset = 48;
+	_IED[5].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
+	_IED[5].InputSlot = 0;
+	_IED[5].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+	_IED[5].InstanceDataStepRate = 0;
+	_IED[5].SemanticName = "TEXCOORD";
+	_IED[5].SemanticIndex = 3;
+
+
+	m_pDevice->CreateInputLayout(_IED, 6, _pVertexShader->GetBufferPointer(), _pVertexShader->GetBufferSize(), &m_pInputLayout);
 
 	// ------------------------------------- Constant Buffer --------------------------------------------------------------------
 

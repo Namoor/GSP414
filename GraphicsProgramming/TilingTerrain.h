@@ -3,6 +3,7 @@
 #include "d3dinclude.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "TilingTerrain_Layer.h"
 
 #include "TilingTerrain_Data.h"
 
@@ -32,6 +33,11 @@ private:
 
 	ID3D11Buffer* m_pPixelConstantBuffer;
 	ID3D11SamplerState* m_pTextureSampler;
+
+	TilingTerrain_Layer* m_pGrass;
+	TilingTerrain_Layer* m_pSnow;
+	TilingTerrain_Layer* m_pStone;
+	TilingTerrain_Layer* m_pCity;
 
 
 	Texture* m_pGrassTexture;

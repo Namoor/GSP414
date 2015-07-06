@@ -67,6 +67,9 @@
     <Filter Include="Source Files\TilingTerrain\Data">
       <UniqueIdentifier>{3b5aff58-c82b-4396-982f-c7478b682790}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\TilingTerrain\TilingTerrain_Layer">
+      <UniqueIdentifier>{e425f4b9-731a-4994-914a-2ea2db7425d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -122,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="TilingTerrain_Data.cpp">
       <Filter>Source Files\TilingTerrain\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="TilingTerrain_Layer.cpp">
+      <Filter>Source Files\TilingTerrain\TilingTerrain_Layer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="TilingTerrain_Data.h">
       <Filter>Source Files\TilingTerrain\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="TilingTerrain_Layer.h">
+      <Filter>Source Files\TilingTerrain\TilingTerrain_Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

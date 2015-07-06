@@ -15,13 +15,11 @@ void TilingTerrain_Data::Init(int xSize, int ySize, TilingTerrainType p_Default)
 	{
 		for (int y = 0; y < m_YSize; y++)
 		{
-			int _Rand = rand() % 1024;
+			int _Rand = rand() % 4;
 			
-			if(_Rand >= 64)
-				SetData(x, y, p_Default);
-			else
-				SetData(x, y, TilingTerrainType::Dirt);
-		}
+			
+			SetData(x, y, (TilingTerrainType)_Rand);
+			}
 	}
 }
 

@@ -3,9 +3,10 @@
 
 enum TilingTerrainType
 {
-	Grass,
-	Stone,
-	Dirt
+	Snow = 0,
+	Grass = 1,
+	City = 2,
+	Stone = 3
 };
 
 
