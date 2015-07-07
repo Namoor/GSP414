@@ -36,6 +36,9 @@ void Scene2D::Initialize(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon
 
 	m_pArial = new SpriteFont("Font.fnt", m_pDevice);
 
+	m_pShadingDemo = new ShadingDemo();
+	m_pShadingDemo->Init(m_pDevice, m_pDeviceContext);
+
 	TilingTerrain_Data* _pData = new TilingTerrain_Data();
 	_pData->Init(128, 128, TilingTerrainType::Grass);
 
@@ -64,13 +67,16 @@ void Scene2D::Update(float p_DeltaTime)
 
 	//m_pPyramid->Update(p_DeltaTime, m_pCamera);
 
+	m_pShadingDemo->Update(p_DeltaTime, m_pCamera);
+
 	m_pFPSCounter->Update(p_DeltaTime);
 	m_pFirstObject->Update(p_DeltaTime, m_pCamera);
 }
 
 void Scene2D::Render()
 {
-	m_pPlane->Draw();
+	//m_pPlane->Draw();
+	m_pShadingDemo->Draw();
 	//m_pPyramid->Draw();
 
 	//m_pFirstObject->Draw();

@@ -8,6 +8,9 @@
 #include "SpriteFont.h"
 #include "FPSCounter.h"
 #include "TilingTerrain.h"
+
+#include "ShadingDemo.h"
+
 #include "Camera.h"
 
 #include "Pyramid.h"
@@ -43,6 +46,7 @@ private:
 
 	SpriteFont* m_pArial;
 
+	ShadingDemo* m_pShadingDemo;
 
 	FPSCounter* m_pFPSCounter;
 

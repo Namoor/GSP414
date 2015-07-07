@@ -70,6 +70,9 @@
     <Filter Include="Source Files\TilingTerrain\TilingTerrain_Layer">
       <UniqueIdentifier>{e425f4b9-731a-4994-914a-2ea2db7425d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ShadingDemo">
+      <UniqueIdentifier>{9f18ca8a-e970-44eb-8cf1-17672e744fc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="TilingTerrain_Layer.cpp">
       <Filter>Source Files\TilingTerrain\TilingTerrain_Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadingDemo.cpp">
+      <Filter>Source Files\ShadingDemo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +224,12 @@
     <ClInclude Include="TilingTerrain_Layer.h">
       <Filter>Source Files\TilingTerrain\TilingTerrain_Layer</Filter>
     </ClInclude>
+    <ClInclude Include="ShadingDemo.h">
+      <Filter>Source Files\ShadingDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadingDemo_Structs.h">
+      <Filter>Source Files\ShadingDemo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple2DShader.hlsl">
@@ -240,6 +252,9 @@
     </FxCompile>
     <FxCompile Include="TilingTerrain.hlsl">
       <Filter>Source Files\TilingTerrain</Filter>
+    </FxCompile>
+    <FxCompile Include="ShadingDemo.hlsl">
+      <Filter>Source Files\ShadingDemo</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
