@@ -18,8 +18,6 @@ ShadingDemo::ShadingDemo()
 	m_pInputLayout = nullptr;
 
 	m_pMatrixConstantBuffer = nullptr;
-
-	m_OffsetFactor = 0;
 }
 
 ShadingDemo::~ShadingDemo()
@@ -36,9 +34,18 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 	m_pDevice = p_pDevice;
 	m_pDevCon = p_pDevCon;
 
-	m_pTexture = new Texture("StoneTexture.jpg", p_pDevice);
+	m_pTexture = new Texture("rocks_dif.jpg", p_pDevice);
 
 	IndexCount = (100 * 100 * 6);
+
+
+	// ------------------------------- LightData --------------------------------------------------
+
+	m_LightingData.AmbientLightColor = D3DXVECTOR4(0.1f, 0.1f, 0.1f, 0);
+	
+	m_LightingData.DirectionalLightColor = D3DXVECTOR4(255, 246, 145, 0) / 255.0f;
+
+	m_LightingData.DirectionalLightDir = D3DXVECTOR4(0, -1, 0, 0);
 
 	// ----------------------------- VertexBuffer -------------------------------------------------
 
@@ -244,7 +251,7 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 	ZeroMemory(&_MatrixBufferDesc, sizeof(_MatrixBufferDesc));
 
 	_MatrixBufferDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
-	_MatrixBufferDesc.ByteWidth = 64;
+	_MatrixBufferDesc.ByteWidth = sizeof(ShadingDemo_MatrixBuffer);
 	_MatrixBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 	_MatrixBufferDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 
@@ -256,7 +263,7 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 	ZeroMemory(&_PixelBufferDesc, sizeof(_PixelBufferDesc));
 
 	_PixelBufferDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
-	_PixelBufferDesc.ByteWidth = 16;
+	_PixelBufferDesc.ByteWidth = sizeof(ShadingDemo_LightingBuffer);
 	_PixelBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 	_PixelBufferDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 
@@ -303,15 +310,16 @@ void ShadingDemo::Update(float DeltaTime, Camera* p_pCamera)
 
 	m_pDevCon->Unmap(m_pMatrixConstantBuffer, 0);
 
-	m_OffsetFactor += DeltaTime * 0.1f;
+	D3DXVECTOR3 _CamPos = p_pCamera->GetPosition();
 
-	D3DXVECTOR2 _Offset(m_OffsetFactor, -m_OffsetFactor);
+	m_LightingData.CameraPosition = D3DXVECTOR4(_CamPos.x, _CamPos.y, _CamPos.z, 0);
+
 
 	D3D11_MAPPED_SUBRESOURCE _PixelMapped;
 
 	m_pDevCon->Map(m_pPixelConstantBuffer, 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &_PixelMapped);
 
-	memcpy(_PixelMapped.pData, &_Offset, 8);
+	memcpy(_PixelMapped.pData, &m_LightingData, sizeof(ShadingDemo_LightingBuffer));
 
 	m_pDevCon->Unmap(m_pPixelConstantBuffer, 0);
 

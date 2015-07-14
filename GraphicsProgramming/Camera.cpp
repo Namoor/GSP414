@@ -32,6 +32,11 @@ void Camera::UpdateViewMatrix()
 
 }
 
+D3DXVECTOR3 Camera::GetPosition()
+{
+	return m_Target - m_Direction * m_DistanceToTarget;
+}
+
 void Camera::Update(float DeltaTime)
 {
 	float xMovement = 0;

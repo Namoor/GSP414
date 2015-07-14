@@ -3,6 +3,7 @@
 #include "d3dinclude.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "ShadingDemo_Structs.h"
 
 
 class ShadingDemo
@@ -33,9 +34,9 @@ private:
 
 	ID3D11Buffer* m_pPixelConstantBuffer;
 
-	float m_OffsetFactor;
-
 	ID3D11SamplerState* m_pTextureSampler;
+
+	ShadingDemo_LightingBuffer m_LightingData;
 
 	Texture* m_pTexture;
 

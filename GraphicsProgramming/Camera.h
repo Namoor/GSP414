@@ -20,6 +20,8 @@ public:
 
 	void UpdateViewMatrix();
 
+	D3DXVECTOR3 GetPosition();
+
 
 
 private:

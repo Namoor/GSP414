@@ -1,4 +1,4 @@
-﻿Build started 07.07.2015 14:55:30.
+﻿Build started 13.07.2015 15:00:18.
      1>Project "C:\Lecture\GPD414\Repo\GraphicsProgramming\GraphicsProgramming.vcxproj" on node 2 (Build target(s)).
      1>Link:
          GraphicsProgramming.vcxproj -> C:\Lecture\GPD414\Repo\GraphicsProgramming\\GraphicsProgramming.exe
@@ -6,4 +6,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.04
+Time Elapsed 00:00:00.06

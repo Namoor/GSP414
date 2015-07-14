@@ -14,3 +14,11 @@ struct ShadingDemo_MatrixBuffer
 {
 	D3DXMATRIX m_WorldViewProjection;
 };
+
+struct ShadingDemo_LightingBuffer
+{
+	D3DXVECTOR4 DirectionalLightColor;
+	D3DXVECTOR4 AmbientLightColor;
+	D3DXVECTOR4 DirectionalLightDir;
+	D3DXVECTOR4 CameraPosition;
+};
