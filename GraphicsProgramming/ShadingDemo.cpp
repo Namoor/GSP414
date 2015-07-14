@@ -34,7 +34,9 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 	m_pDevice = p_pDevice;
 	m_pDevCon = p_pDevCon;
 
-	m_pTexture = new Texture("rocks_dif.jpg", p_pDevice);
+	m_pTexture_Dif = new Texture("rocks_dif.jpg", p_pDevice);
+	m_pTexture_Nrm = new Texture("rocks_nrm.dds", p_pDevice);
+
 
 	IndexCount = (100 * 100 * 6);
 
@@ -45,7 +47,11 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 	
 	m_LightingData.DirectionalLightColor = D3DXVECTOR4(255, 246, 145, 0) / 255.0f;
 
-	m_LightingData.DirectionalLightDir = D3DXVECTOR4(0, -1, 0, 0);
+	m_LightingData.DirectionalLightDir = D3DXVECTOR4(0, -0.7f, -0.7f, 0);
+
+	m_LightingData.PointLightPos = D3DXVECTOR3(0, 1, 0);
+
+	m_LightingData.PointLightRange = 3;
 
 	// ----------------------------- VertexBuffer -------------------------------------------------
 
@@ -100,6 +106,17 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 
 
 			D3DXVec3Normalize(&(_Array[y * (100 + 1) + x].m_Normal), &Normal);
+
+			//1. Tangente in eine RIchtung setzen
+			_Array[y * (100 + 1) + x].m_Tangent = D3DXVECTOR3(1, 0, 0);
+
+			//2. Anhand der Tangenten die BiTangente Berechnen
+			D3DXVec3Cross(&(_Array[y * (100 + 1) + x].m_BiTangent), &(_Array[y * (100 + 1) + x].m_Normal), &(_Array[y * (100 + 1) + x].m_Tangent));
+
+			//3. Tangente neuberechnen mithilfe von BiTangent und Normal
+			D3DXVec3Cross(&(_Array[y * (100 + 1) + x].m_Tangent), &(_Array[y * (100 + 1) + x].m_BiTangent), &(_Array[y * (100 + 1) + x].m_Normal));
+
+
 
 			_Array[y * (100 + 1) + x].m_Color = D3DXVECTOR4(1, 1, 1, 1);
 			_Array[y * (100 + 1) + x].m_Position = Position;
@@ -211,7 +228,7 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 
 	// ----------------------------------------- InputLayout -----------------------------------------------------------
 
-	D3D11_INPUT_ELEMENT_DESC _IED[4];
+	D3D11_INPUT_ELEMENT_DESC _IED[6];
 	_IED[0].AlignedByteOffset = 0;
 	_IED[0].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
 	_IED[0].InputSlot = 0;
@@ -242,8 +259,24 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 	_IED[3].SemanticName = "NORMAL";
 	_IED[3].SemanticIndex = 0;
 
+	_IED[4].AlignedByteOffset = 48;
+	_IED[4].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
+	_IED[4].InputSlot = 0;
+	_IED[4].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+	_IED[4].InstanceDataStepRate = 0;
+	_IED[4].SemanticName = "NORMAL";
+	_IED[4].SemanticIndex = 1;
+	
+	_IED[5].AlignedByteOffset = 60;
+	_IED[5].Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
+	_IED[5].InputSlot = 0;
+	_IED[5].InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+	_IED[5].InstanceDataStepRate = 0;
+	_IED[5].SemanticName = "NORMAL";
+	_IED[5].SemanticIndex = 2;
 
-	m_pDevice->CreateInputLayout(_IED, 4, _pVertexShader->GetBufferPointer(), _pVertexShader->GetBufferSize(), &m_pInputLayout);
+
+	m_pDevice->CreateInputLayout(_IED, 6, _pVertexShader->GetBufferPointer(), _pVertexShader->GetBufferSize(), &m_pInputLayout);
 
 	// ------------------------------------- Constant Buffer --------------------------------------------------------------------
 
@@ -300,19 +333,34 @@ void ShadingDemo::Update(float DeltaTime, Camera* p_pCamera)
 	D3DXMATRIX WorldMatrix;
 	D3DXMatrixIdentity(&WorldMatrix);
 
-	D3DXMATRIX _MatrixData = WorldMatrix * p_pCamera->GetViewMatrix() * p_pCamera->GetProjectionMatrix();
+	//D3DXMatrixRotationX(&WorldMatrix, 3.141592f * 0.5f);
+	D3DXMatrixTranslation(&WorldMatrix, 2, 0, 0);
+
+
+	ShadingDemo_MatrixBuffer _MatrixData;
+	_MatrixData.m_WorldViewProjection = WorldMatrix * p_pCamera->GetViewMatrix() * p_pCamera->GetProjectionMatrix();
+	_MatrixData.m_WorldMatrix = WorldMatrix;
 
 	D3D11_MAPPED_SUBRESOURCE _MatrixMapped;
 
 	m_pDevCon->Map(m_pMatrixConstantBuffer, 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &_MatrixMapped);
 
-	memcpy(_MatrixMapped.pData, &_MatrixData, 64);
+	memcpy(_MatrixMapped.pData, &_MatrixData, sizeof(ShadingDemo_MatrixBuffer));
 
 	m_pDevCon->Unmap(m_pMatrixConstantBuffer, 0);
-
+	
 	D3DXVECTOR3 _CamPos = p_pCamera->GetPosition();
 
 	m_LightingData.CameraPosition = D3DXVECTOR4(_CamPos.x, _CamPos.y, _CamPos.z, 0);
+
+	D3DXMATRIX _Rotation;
+	D3DXMatrixRotationY(&_Rotation, DeltaTime);
+
+	D3DXVECTOR3 _Input(m_LightingData.DirectionalLightDir.x, m_LightingData.DirectionalLightDir.y, m_LightingData.DirectionalLightDir.z);
+
+
+	D3DXVec3Transform(&m_LightingData.DirectionalLightDir, &_Input, &_Rotation);
+
 
 
 	D3D11_MAPPED_SUBRESOURCE _PixelMapped;
@@ -338,7 +386,8 @@ void ShadingDemo::Draw()
 	m_pDevCon->VSSetShader(m_pVertexShader, nullptr, 0);
 	m_pDevCon->PSSetShader(m_pPixelShader, nullptr, 0);
 
-	m_pDevCon->PSSetShaderResources(0, 1, &m_pTexture->m_pSRV);
+	m_pDevCon->PSSetShaderResources(0, 1, &m_pTexture_Dif->m_pSRV);
+	m_pDevCon->PSSetShaderResources(1, 1, &m_pTexture_Nrm->m_pSRV);
 	m_pDevCon->PSSetSamplers(0, 1, &m_pTextureSampler);
 
 	m_pDevCon->VSSetConstantBuffers(0, 1, &m_pMatrixConstantBuffer);
@@ -352,6 +401,8 @@ void ShadingDemo::Draw()
 
 float ShadingDemo::GetHeightAt(float x, float y)
 {
+	//return 0;
+
 	float _CenterX = 5;
 	float _CenterY = 5;
 

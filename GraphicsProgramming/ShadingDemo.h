@@ -38,7 +38,8 @@ private:
 
 	ShadingDemo_LightingBuffer m_LightingData;
 
-	Texture* m_pTexture;
+	Texture* m_pTexture_Dif;
+	Texture* m_pTexture_Nrm;
 
 	int IndexCount;
 	ID3D11Device* m_pDevice;
