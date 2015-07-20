@@ -32,7 +32,10 @@ cbuffer CPixel // Constantbuffer 1
 	float4 AmbientLightColor;
 	float4 DirectionalLightDir;
 	float4 CameraPosition;
+	float4 PointLightColor;
 	float4 RGBPointLightPosAPointLightRange;
+	float4 PointLightColor2;
+	float4 RGBPointLightPosAPointLightRange2;
 };
 
 Texture2D gTexture[2];	// 0: Diffuse
@@ -92,26 +95,66 @@ float4 PShader(VertexOut p_Input) : SV_TARGET
 
 	TransformedNormal = normalize(TransformedNormal);
 
-		// SpecLight
-		float3 PointToLight = -DirectionalLightDir.xyz;
-		float3 PointToCamera = normalize(CameraPosition.xyz - p_Input.WorldPos.xyz);
+	float3 PointToCamera = normalize(CameraPosition.xyz - p_Input.WorldPos.xyz);
 
-		float SpecularPower = PhongShading(PointToLight, PointToCamera, TransformedNormal);
+	// DirectionLight ---------------------------------------------------------------------------------------------------------------------
+	
+
+	// SpecLight
+	float3 PointToLight = -DirectionalLightDir.xyz;
+
+	float SpecularPower = PhongShading(PointToLight, PointToCamera, TransformedNormal);
 
 	SpecularPower = pow(SpecularPower, 100); // äquivalent zu: SpecularPower ^ 100
 
 	float3 SpecularColor = DirectionalLightColor * saturate(SpecularPower);
 
-	// DiffuseLight
-	float3 DiffLightColor = saturate(dot(TransformedNormal, -DirectionalLightDir.xyz)) * DirectionalLightColor;
+		// DiffuseLight
+		float3 DiffLightColor = saturate(dot(TransformedNormal, -DirectionalLightDir.xyz)) * DirectionalLightColor;
 
-	
-	// AmbientLight
+		// PointLight -------------------------------------------------------------------------------------------------------------------------
+
+
+		float3 PL_PointToLight = RGBPointLightPosAPointLightRange.rgb - p_Input.WorldPos.xyz;
+
+		float PL_PointLightDistance = length(PL_PointToLight);
+	PL_PointToLight /= PL_PointLightDistance;
+
+	float PL_Strength = saturate(1 - (PL_PointLightDistance / RGBPointLightPosAPointLightRange.a));
+
+	float PL_SpecPower = PhongShading(PL_PointToLight, PointToCamera, TransformedNormal);
+	PL_SpecPower = pow(PL_SpecPower, 100);
+
+	float3 PL_SpecColor = PointLightColor * saturate(PL_SpecPower);
+
+		// Diffuse Light
+		float3 PL_DiffColor = saturate(dot(TransformedNormal, PL_PointToLight.xyz)) * PointLightColor;
+
+		// PointLight2 ------------------------------------------------------------------------------------------------------------------------
+
+
+		float3 PL2_PointToLight = RGBPointLightPosAPointLightRange2.rgb - p_Input.WorldPos.xyz;
+
+		float PL2_PointLightDistance = length(PL2_PointToLight);
+	PL2_PointToLight /= PL2_PointLightDistance;
+
+	float PL2_Strength = saturate(1 - (PL2_PointLightDistance / RGBPointLightPosAPointLightRange2.a));
+
+	float PL2_SpecPower = PhongShading(PL2_PointToLight, PointToCamera, TransformedNormal);
+	PL2_SpecPower = pow(PL2_SpecPower, 100);
+
+	float3 PL2_SpecColor = PointLightColor2 * saturate(PL2_SpecPower);
+
+		// Diffuse Light
+		float3 PL2_DiffColor = saturate(dot(TransformedNormal, PL2_PointToLight.xyz)) * PointLightColor2;
+
+
+	// AmbientLight -----------------------------------------------------------------------------------------------------------------------
 	float3 AmbientLightColor1 = AmbientLightColor;
 
 	
 	// Combination
-	float3 LightColor = saturate(AmbientLightColor1 + DiffLightColor + SpecularColor);
+	float3 LightColor = saturate(AmbientLightColor1 + DiffLightColor + SpecularColor + (PL_DiffColor + PL_SpecColor) * PL_Strength + (PL2_DiffColor + PL2_SpecColor) * PL2_Strength);
 
 
 	//                 	
@@ -121,7 +164,7 @@ float4 PShader(VertexOut p_Input) : SV_TARGET
 
 
 
-	return float4(LightColor * TexColor, 1);
+	return float4(LightColor * TexColor * 1.5f, 1);
 	//return float4(TransformedNormal, 1);
 
 	//return float4(LightIntensity, LightIntensity, LightIntensity, 1);

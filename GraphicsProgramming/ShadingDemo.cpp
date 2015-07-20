@@ -18,6 +18,8 @@ ShadingDemo::ShadingDemo()
 	m_pInputLayout = nullptr;
 
 	m_pMatrixConstantBuffer = nullptr;
+
+	m_TimeSinceStart = 0;
 }
 
 ShadingDemo::~ShadingDemo()
@@ -49,9 +51,18 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 
 	m_LightingData.DirectionalLightDir = D3DXVECTOR4(0, -0.7f, -0.7f, 0);
 
-	m_LightingData.PointLightPos = D3DXVECTOR3(0, 1, 0);
+	m_LightingData.PointLightColor = D3DXVECTOR4(1, 0, 0, 0);
 
-	m_LightingData.PointLightRange = 3;
+	m_LightingData.PointLightPos = D3DXVECTOR3(5, 6, 5);
+
+	m_LightingData.PointLightRange = 10;
+
+
+	m_LightingData.PointLightColor2 = D3DXVECTOR4(0, 0, 1, 0);
+
+	m_LightingData.PointLightPos2 = D3DXVECTOR3(5, 6, 5);
+
+	m_LightingData.PointLightRange2 = 10;
 
 	// ----------------------------- VertexBuffer -------------------------------------------------
 
@@ -330,6 +341,8 @@ void ShadingDemo::Init(ID3D11Device* p_pDevice, ID3D11DeviceContext* p_pDevCon)
 
 void ShadingDemo::Update(float DeltaTime, Camera* p_pCamera)
 {
+	m_TimeSinceStart += DeltaTime;
+
 	D3DXMATRIX WorldMatrix;
 	D3DXMatrixIdentity(&WorldMatrix);
 
@@ -356,11 +369,20 @@ void ShadingDemo::Update(float DeltaTime, Camera* p_pCamera)
 	D3DXMATRIX _Rotation;
 	D3DXMatrixRotationY(&_Rotation, DeltaTime);
 
-	D3DXVECTOR3 _Input(m_LightingData.DirectionalLightDir.x, m_LightingData.DirectionalLightDir.y, m_LightingData.DirectionalLightDir.z);
+	//D3DXVECTOR3 _Input(m_LightingData.DirectionalLightDir.x, m_LightingData.DirectionalLightDir.y, m_LightingData.DirectionalLightDir.z);
 
 
-	D3DXVec3Transform(&m_LightingData.DirectionalLightDir, &_Input, &_Rotation);
+	//D3DXVec3Transform(&m_LightingData.DirectionalLightDir, &_Input, &_Rotation);
 
+
+	m_LightingData.PointLightPos.x = 5 + sin(m_TimeSinceStart) * 5;
+	m_LightingData.PointLightPos.y = 5;
+	m_LightingData.PointLightPos.z = 5 + cos(m_TimeSinceStart) * 5;
+
+
+	m_LightingData.PointLightPos2.x = 5 - sin(m_TimeSinceStart) * 5;
+	m_LightingData.PointLightPos2.y = 5;
+	m_LightingData.PointLightPos2.z = 5 - cos(m_TimeSinceStart) * 5;
 
 
 	D3D11_MAPPED_SUBRESOURCE _PixelMapped;

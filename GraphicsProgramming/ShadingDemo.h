@@ -44,4 +44,6 @@ private:
 	int IndexCount;
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pDevCon;
+
+	float m_TimeSinceStart;
 };

@@ -24,6 +24,10 @@ struct ShadingDemo_LightingBuffer
 	D3DXVECTOR4 AmbientLightColor;
 	D3DXVECTOR4 DirectionalLightDir;
 	D3DXVECTOR4 CameraPosition;
+	D3DXVECTOR4 PointLightColor;
 	D3DXVECTOR3 PointLightPos;
 	float PointLightRange;
+	D3DXVECTOR4 PointLightColor2;
+	D3DXVECTOR3 PointLightPos2;
+	float PointLightRange2;
 };
